@@ -1,0 +1,17 @@
+[Unit]
+Description=NFS Mount
+AssertPathIsDirectory=/mnt
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=pi
+Group=pi
+Type=simple
+ExecStart=/usr/bin/mount -t nfs 10.0.0.47:/mnt/MergerFS /mnt
+ExecStop=/usr/bin/sudo umount /mnt
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
