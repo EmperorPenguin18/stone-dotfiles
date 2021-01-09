@@ -5,11 +5,9 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-User=pi
-Group=pi
 Type=simple
 ExecStart=/usr/bin/mount -t nfs 10.0.0.47:/mnt/MergerFS /mnt
-ExecStop=/usr/bin/sudo umount /mnt
+ExecStop=/usr/bin/umount /mnt
 Restart=on-failure
 RestartSec=5
 
