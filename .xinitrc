@@ -1,3 +1,4 @@
-spectrwm &
 xscreensaver &
+unclutter &
+spectrwm &
 exec cool-retro-term -e ranger /mnt
