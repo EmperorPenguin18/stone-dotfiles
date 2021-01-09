@@ -2,7 +2,7 @@
 
 #sudo apt update -y && sudo apt upgrade -y
 #sudo raspi-config
-echo 'deb http://deb.xanmod.org releases main' | tee /etc/apt/sources.list.d/xanmod-kernel.list && wget -qO - https://dl.xanmod.org/gpg.key | apt-key add -
+echo 'deb http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-kernel.list && wget -qO - https://dl.xanmod.org/gpg.key | sudo apt-key add -
 sudo apt update -y
 sudo apt install -y linux-xanmod-edge xorg xinit spectrwm cool-retro-term ranger mediainfo mpv nfs-common xscreensaver
 echo 'if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then' > "$(ls -a /home/pi | grep profile)"
