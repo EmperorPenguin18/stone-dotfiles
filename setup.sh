@@ -11,6 +11,4 @@ cp -f .xinitrc /home/pi/
 cp -f .spectrwm.conf /home/pi/
 mkdir -p /home/pi/.config/mpv
 cp -f mpv.conf /home/pi/.config/mpv/
-sudo cp -f mediamount.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable mediamount
+sudo echo '10.0.0.47:/mnt/MergerFS /mnt nfs rw' >> /etc/fstab
