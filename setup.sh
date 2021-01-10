@@ -1,9 +1,12 @@
 #!/bin/sh
 
-#sudo apt update -y && sudo apt upgrade -y
+#sudo pacman -Syu
 #sudo raspi-config
-sudo apt install -y xorg xinit spectrwm ranger mediainfo mpv nfs-common xscreensaver unclutter snap xserver-xorg-input-joystick
-sudo snap install --classic cool-retro-term
+sudo pacman -S xorg xorg-drivers xorg-xinit spectrwm cool-retro-term ranger mediainfo mpv nfs-utils xscreensaver unclutter --noconfirm --needed
+git clone https://aur.archlinux.org/pikaur.git
+cd pikaur
+makepkg -si --noconfirm
+pikaur -S xf86-input-joystick
 echo 'if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then' >> /home/pi/"$(ls -a /home/pi | grep profile)"
 echo '  exec startx' >> /home/pi/"$(ls -a /home/pi | grep profile)"
 echo 'fi' >> /home/pi/"$(ls -a /home/pi | grep profile)"
