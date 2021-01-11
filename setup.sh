@@ -2,7 +2,7 @@
 
 #sudo pacman -Syu
 #sudo raspi-config
-sudo pacman -S git base-devel xorg xorg-drivers xorg-xinit spectrwm cool-retro-term ranger mediainfo mpv nfs-utils xscreensaver unclutter --noconfirm --needed
+sudo pacman -S git base-devel xorg xorg-drivers xorg-xinit spectrwm termite ranger mpv nfs-utils xscreensaver unclutter --noconfirm --needed
 git clone https://aur.archlinux.org/pikaur.git
 cd pikaur
 makepkg -si --noconfirm
