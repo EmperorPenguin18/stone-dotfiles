@@ -18,3 +18,7 @@ sudo echo '10.0.0.47:/mnt/MergerFS /mnt nfs rw' >> /etc/fstab
 sudo mkdir -p /etc/X11/xorg.conf.d
 sudo cp -f ./51-joystick.conf /etc/X11/xorg.conf.d/
 sudo cp -f ./config.txt /boot/
+sudo mkdir /etc/systemd/system/getty@tty1.service.d
+sudo echo '[Service]' > /etc/systemd/system/getty@tty1.service.d/override.conf
+sudo echo 'ExecStart=' >> /etc/systemd/system/getty@tty1.service.d/override.conf
+sudo echo 'ExecStart=-/usr/bin/agetty --autologin alarm --noclear %I $TERM' >> /etc/systemd/system/getty@tty1.service.d/override.conf
