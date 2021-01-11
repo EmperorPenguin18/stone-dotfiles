@@ -1,0 +1,3 @@
+gpu_mem=256
+initramfs initramfs-linux.img followkernel
+disable_overscan=1
