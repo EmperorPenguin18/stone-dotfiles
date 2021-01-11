@@ -1,4 +1,4 @@
 xscreensaver &
 unclutter &
 spectrwm &
-exec cool-retro-term -e ranger /mnt
+exec termite -e 'ranger /mnt'
