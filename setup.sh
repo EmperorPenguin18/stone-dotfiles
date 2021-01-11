@@ -17,3 +17,4 @@ cp -f ./mpv.conf /home/alarm/.config/mpv/
 sudo echo '10.0.0.47:/mnt/MergerFS /mnt nfs rw' >> /etc/fstab
 sudo mkdir -p /etc/X11/xorg.conf.d
 sudo cp -f ./51-joystick.conf /etc/X11/xorg.conf.d/
+sudo cp -f ./config.txt /boot/
