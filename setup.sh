@@ -4,7 +4,9 @@
 DISTRO=${1:-arch}
 USER=${2:-alarm}
 
-[ "$DISTRO" = "arch" ] && sudo pacman -S git base-devel xorg xorg-drivers xorg-xinit spectrwm termite ranger mpv nfs-utils xscreensaver unclutter --noconfirm --needed git clone https://aur.archlinux.org/pikaur.git cd pikaur && makepkg -si --noconfirm && pikaur -S xf86-input-joystick --noconfirm
+[ "$DISTRO" = "arch" ] && sudo pacman -S git base-devel xorg xorg-xinit spectrwm termite ranger mpv nfs-utils xscreensaver unclutter --noconfirm --needed && git clone https://aur.archlinux.org/pikaur.git && cd pikaur && makepkg -si --noconfirm && pikaur -S xf86-input-joystick --noconfirm
+[ "$DISTRO" = "fedora" ] && sudo dnf install --assumeyes #
+[ "$DISTRO" = "debian" ] && sudo apt install -y #
 echo 'if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
 echo '  exec startx' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
 echo 'fi' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
