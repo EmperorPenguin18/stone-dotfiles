@@ -1,4 +1,4 @@
 xscreensaver &
 unclutter &
 spectrwm &
-exec termite -e 'ranger /mnt'
+exec alacritty -e ranger /mnt
