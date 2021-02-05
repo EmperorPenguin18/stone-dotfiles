@@ -23,3 +23,5 @@ sudo cp -f ./51-joystick.conf /etc/X11/xorg.conf.d/
 sudo mkdir /etc/systemd/system/getty@tty1.service.d
 sudo cp -f ./override.conf /etc/systemd/system/getty@tty1.service.d/
 sudo sed -i "s/USER/$USER/g" /etc/systemd/system/getty@tty1.service.d/override.conf
+
+#https://addy-dclxvi.github.io/post/configuring-urxvt/
