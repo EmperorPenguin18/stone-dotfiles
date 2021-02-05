@@ -1,4 +1,4 @@
 xset s off -dpms
 unclutter &
 spectrwm &
-exec alacritty -e ranger /mnt
+exec urxvt -e ranger /mnt
