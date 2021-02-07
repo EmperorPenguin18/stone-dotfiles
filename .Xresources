@@ -38,7 +38,7 @@
 *.color15: #fdf6e3
 
 !! URxvt Appearance
-URxvt*font: -*-terminus-medium-r-*-*-12-*-*-*-*-*-*
+!URxvt*font: -*-terminus-medium-r-*-*-12-*-*-*-*-*-*
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
 URxvt.geometry: 92x24
