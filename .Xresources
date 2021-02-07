@@ -38,10 +38,7 @@
 *.color15: #fdf6e3
 
 !! URxvt Appearance
-URxvt.font: -*-rissole-*
-URxvt.boldFont: -*-rissole-*
-URxvt.italicFont: -*-rissole-*
-URxvt.boldItalicfont: -*-rissole-*
+URxvt*font: -*-terminus-medium-r-*-*-12-*-*-*-*-*-*
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
 URxvt.geometry: 92x24
