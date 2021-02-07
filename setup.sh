@@ -26,6 +26,7 @@ cp -f ./.xinitrc /home/$USER/
 cp -f ./.spectrwm.conf /home/$USER/
 mkdir -p /home/$USER/.config/mpv
 cp -f ./mpv.conf /home/$USER/.config/mpv/
+cp -f ./input.conf /home/$USER/.config/mpv/
 sudo mkdir -p /etc/X11/xorg.conf.d
 sudo cp -f ./51-joystick.conf /etc/X11/xorg.conf.d/
 [ "$DISTRO" != "fedora" ] && sudo cp -f ./config.txt /boot
