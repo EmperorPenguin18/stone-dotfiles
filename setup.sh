@@ -7,7 +7,7 @@ USER=${2:-pi}
 #Install packages
 [ "$DISTRO" = "arch" ] && sudo pacman -S git base-devel xorg xorg-xinit spectrwm rxvt-unicode ranger mpv nfs-utils unclutter --noconfirm --needed && git clone https://aur.archlinux.org/pikaur.git && cd pikaur && makepkg -si --noconfirm && pikaur -S xf86-input-joystick --noconfirm
 [ "$DISTRO" = "fedora" ] && sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && sudo dnf install --assumeyes xorg-x11-server-Xorg xorg-x11-drv-fbdev xorg-x11-xinit spectrwm mesa* rxvt-unicode ranger mpv nfs-utils linuxconsoletools
-[ "$DISTRO" = "debian" ] && sudo apt install -y #libgles2-mesa libgles2-mesa-dev xorg-dev rxvt-unicode xsel
+[ "$DISTRO" = "debian" ] && sudo apt install -y xserver-xorg xinit libgles2-mesa libgles2-mesa-dev xorg-dev spectrwm rxvt-unicode xsel ranger mpv nfs-common unclutter xserver-xorg-input-joystick
 
 #Auto-login as user
 sudo mkdir /etc/systemd/system/getty@tty1.service.d
@@ -38,5 +38,3 @@ cp -f ./.Xresources /home/$USER/
 cat /etc/fstab > ./fstab
 echo '10.0.0.47:/mnt/MergerFS /mnt nfs rw' >> ./fstab
 sudo cp -f ./fstab /etc/
-
-#https://addy-dclxvi.github.io/post/configuring-urxvt/
