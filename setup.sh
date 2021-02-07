@@ -36,11 +36,13 @@ cp -f ./urxvt-perls/keyboard-select /home/$USER/.urxvt/ext/
 cp -f ./urxvt-perls/deprecated/clipboard /home/$USER/.urxvt/ext/
 cp -f ./urxvt-perls/deprecated/url-select /home/$USER/.urxvt/ext/
 cp -f ./.Xresources /home/$USER/
-mkdir -p /home/$USER/.config/ranger
+mkdir -p /home/$USER/.config/ranger/plugins
 cp -f ./rc.conf /home/$USER/.config/ranger/
 cp -f ./scope.sh /home/$USER/.config/ranger/
+cp -f ./plugin_file_filter.py /home/$USER/.config/ranger/plugins/
 
 #Auto-mount nfs share
+mkdir /mnt/Media
 cat /etc/fstab > ./fstab
-echo '10.0.0.47:/mnt/MergerFS /mnt nfs rw' >> ./fstab
+echo '10.0.0.47:/mnt/MergerFS /mnt/Media nfs rw' >> ./fstab
 sudo cp -f ./fstab /etc/
