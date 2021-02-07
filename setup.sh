@@ -30,8 +30,8 @@ sudo cp -f ./51-joystick.conf /etc/X11/xorg.conf.d/
 git clone https://github.com/muennich/urxvt-perls
 mkdir -p /home/$USER/.urxvt/ext
 cp -f ./urxvt-perls/keyboard-select /home/$USER/.urxvt/ext/
-cp -f ./urxvt-perls/clipboard /home/$USER/.urxvt/ext/
-cp -f ./urxvt-perls/url-select /home/$USER/.urxvt/ext/
+cp -f ./urxvt-perls/deprecated/clipboard /home/$USER/.urxvt/ext/
+cp -f ./urxvt-perls/deprecated/url-select /home/$USER/.urxvt/ext/
 cp -f ./.Xresources /home/$USER/
 
 #Auto-mount nfs share
