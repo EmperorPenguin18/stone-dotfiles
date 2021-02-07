@@ -14,9 +14,7 @@ USER=${2:-pi}
 [ "$DISTRO" = "debian" ] && sudo apt install -y xserver-xorg xinit libgles2-mesa libgles2-mesa-dev xorg-dev spectrwm rxvt-unicode xsel ranger mpv nfs-common unclutter xserver-xorg-input-joystick
 
 #Auto-login as user
-sudo mkdir /etc/systemd/system/getty@tty1.service.d
-sudo cp -f ./override.conf /etc/systemd/system/getty@tty1.service.d/
-sudo sed -i "s/USER/$USER/g" /etc/systemd/system/getty@tty1.service.d/override.conf
+[ "$DISTO" = "arch" ] && sudo mkdir /etc/systemd/system/getty@tty1.service.d && sudo cp -f ./override.conf /etc/systemd/system/getty@tty1.service.d/ && sudo sed -i "s/USER/$USER/g" /etc/systemd/system/getty@tty1.service.d/override.conf
 
 #Auto-start X
 echo 'if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
