@@ -1,5 +1,9 @@
 #!/bin/sh
-#Make sure to be all updated and configured before starting
+#Make sure to be all updated and configured before starting, example:
+#sudo apt update
+#sudo apt dist-upgrade
+#sudo rpi-update
+#sudo raspi-config
 
 DISTRO=${1:-debian}
 USER=${2:-pi}
