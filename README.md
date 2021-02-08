@@ -3,6 +3,9 @@ Configuration for Pi
 
 Turns your Raspberry Pi into a streaming box. Watch videos over a network share all controllable from the couch.
 
+### Known issues:
+- No hardware acceleration (makes it pretty much unusable)
+
 ### How to use:
 1. Install Raspberry Pi OS Lite (32-bit) to a Raspberry Pi of choice (Pi 4 with cooling recommended).
 2. Boot up and log in (user: pi pass: raspberry).
