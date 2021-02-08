@@ -37,7 +37,7 @@ cp -f ./scope.sh /home/$USER/.config/ranger/
 cp -f ./plugin_file_filter.py /home/$USER/.config/ranger/plugins/
 
 #Auto-mount nfs share
-mkdir /mnt/Media
+sudo mkdir /mnt/Media
 cat /etc/fstab > ./fstab
 echo '10.0.0.47:/mnt/MergerFS /mnt/Media nfs rw' >> ./fstab
 sudo cp -f ./fstab /etc/
