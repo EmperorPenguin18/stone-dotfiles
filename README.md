@@ -14,7 +14,17 @@ sudo rpi-update
 sudo reboot
 sudo raspi-config
 ```
-
+Settings to change:
+System -> Audio -> HDMI
+System -> Password
+System -> Hostname
+System -> Boot -> Console Autologin
+System -> Network at boot -> Yes
+Interface -> SSH -> Yes
+Localisation -> Locale
+Localisation -> Timezone
+Localisation -> Keyboard
+Localisation -> WLAN Country
 ```
 git clone https://github.com/EmperorPenguin18/stone-dotfiles
 cd stone-dotfiles
