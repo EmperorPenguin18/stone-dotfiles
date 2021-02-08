@@ -23,7 +23,11 @@ chmod +x setup.sh
 ```
 4. Change the line in /etc/fstab to mount your network share
 5. Reboot. You should automatically enter into ranger (file manager).
-6. You can navigate and control mpv (video player) with a gamepad.
+6. You can navigate ranger and control mpv (video player) with a gamepad.
 ![alt text](https://raw.githubusercontent.com/EmperorPenguin18/stone-dotfiles/main/diagram.png)
+
+### Future:
+- Connect to Jellyfin
+- Nicer interface
 
 Yes this is a JoJo reference.
