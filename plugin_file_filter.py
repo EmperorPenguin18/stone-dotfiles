@@ -12,7 +12,7 @@ import ranger.container.directory
 
 ACCEPT_FILE_OLD = ranger.container.directory.accept_file
 
-HIDE_FILES = ("/bin", "/boot", "/boot.bak", "/dev", "/etc", "/home", "/lib", "/lost+found", "/media", "/opt", "/proc", "/root", "/run", "/sbin", "/srv", "/sys", "/tmp", "/usr", "/var")
+HIDE_FILES = ("/bin", "/boot", "/boot.bak", "/dev", "/etc", "/home", "/lib", "/lost+found", "/mnt", "/opt", "/proc", "/root", "/run", "/sbin", "/srv", "/sys", "/tmp", "/usr", "/var")
 
 
 # Define a new one
