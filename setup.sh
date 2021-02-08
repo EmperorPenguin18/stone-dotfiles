@@ -34,6 +34,7 @@ cp -f ./.Xresources /home/$USER/
 mkdir -p /home/$USER/.config/ranger/plugins
 cp -f ./rc.conf /home/$USER/.config/ranger/
 cp -f ./scope.sh /home/$USER/.config/ranger/
+chmod +x /home/$USER/.config/ranger/scope.sh
 cp -f ./plugin_file_filter.py /home/$USER/.config/ranger/plugins/
 
 #Auto-mount nfs share
