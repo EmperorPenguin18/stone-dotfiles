@@ -1,6 +1,18 @@
 #!/bin/sh
 
 USER=${2:-alarm}
+PASS1=$(dialog --stdout --passwordbox "Enter your password." 0 0)
+PASS2=$(dialog --stdout --passwordbox "Confirm password." 0 0)
+[ "$PASS1" != "$PASS2" ] && echo "Passwords do not match" && exit 1
+HOST=$(dialog --stdout --inputbox "Enter your hostname." 0 0)
+TIME=$(dialog --stdout --inputbox "Enter your timezone (eg America/Toronto)." 0 0)
+
+#Configure stuff
+printf "$PASS1\n$PASS1\n" | passwd
+printf "$PASS1\n$PASS1\n" | passwd $USER
+echo "$HOST" > /etc/hostname
+ln -sf /usr/share/zoneinfo/$TIME /etc/localtime
+timedatectl set-timezone $TIME
 
 #Install packages
 pacman -S git base-devel xorg xorg-xinit spectrwm rxvt-unicode xsel alsa-utils ranger nfs-utils unclutter pyalpm python-commonmark --noconfirm --needed
