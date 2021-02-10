@@ -7,6 +7,7 @@ Turns your Raspberry Pi into a streaming box. Watch videos over a network share 
 - No hardware acceleration (makes it pretty much unusable)
 
 ### How to use:
+**Debian**
 1. Install Raspberry Pi OS Lite (32-bit) to a Raspberry Pi of choice (Pi 4 with cooling recommended).
 2. Boot up and log in (user: pi pass: raspberry).
 3. Run the following commands:
@@ -35,6 +36,19 @@ cd stone-dotfiles
 chmod +x debian.sh
 ./debian.sh
 ```
+**Arch**
+1. Install Arch for ARM following https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4
+2. Make sure to log in as root (password root)
+3. Run the following commands:
+```
+pacman -Syu git
+reboot
+git clone https://github.com/EmperorPenguin18/stone-dotfiles
+cd stone-dotfiles
+chmod +x arch.sh
+./arch.sh
+```
+**Both**
 4. Change the line in /etc/fstab to mount your network share
 5. Reboot. You should automatically enter into ranger (file manager).
 6. You can navigate ranger and control mpv (video player) with a gamepad.
