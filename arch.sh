@@ -3,11 +3,15 @@
 USER=${2:-alarm}
 
 #Install packages
-sudo pacman -S git base-devel xorg xorg-xinit spectrwm rxvt-unicode ranger mpv nfs-utils unclutter --noconfirm --needed
-git clone https://aur.archlinux.org/pikaur.git
+sudo pacman -S git base-devel xorg xorg-xinit spectrwm rxvt-unicode xsel ranger nfs-utils unclutter --noconfirm --needed
+su $USER -c "git clone https://aur.archlinux.org/pikaur.git"
 cd pikaur
-makepkg -si --noconfirm
-pikaur -S xf86-input-joystick --noconfirm
+su $USER -c "makepkg --noconfirm"
+pacman -U *.pkg* --noconfirm --needed
+cd ../
+rm -r pikaur
+pikaur -S xf86-input-joystick ffmpeg-git --noconfirm
+sudo pacman -S ffmpegthumbnailer mpv --noconfirm --needed
 
 #Auto-login as user
 sudo mkdir /etc/systemd/system/getty@tty1.service.d
