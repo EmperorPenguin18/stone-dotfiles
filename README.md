@@ -32,8 +32,8 @@ Localisation -> WLAN Country
 sudo apt install git
 git clone https://github.com/EmperorPenguin18/stone-dotfiles
 cd stone-dotfiles
-chmod +x setup.sh
-./setup.sh
+chmod +x debian.sh
+./debian.sh
 ```
 4. Change the line in /etc/fstab to mount your network share
 5. Reboot. You should automatically enter into ranger (file manager).
