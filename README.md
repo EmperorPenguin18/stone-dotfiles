@@ -48,9 +48,9 @@ cd stone-dotfiles
 chmod +x arch.sh
 ./arch.sh
 ```
-**Both**
-4. Change the line in /etc/fstab to mount your network share
-5. Reboot. You should automatically enter into ranger (file manager).
+**Both**  
+4. Change the line in /etc/fstab to mount your network share  
+5. Reboot. You should automatically enter into ranger (file manager).  
 6. You can navigate ranger and control mpv (video player) with a gamepad.
 ![alt text](https://raw.githubusercontent.com/EmperorPenguin18/stone-dotfiles/main/diagram.png)
 
