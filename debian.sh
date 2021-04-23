@@ -2,8 +2,14 @@
 
 USER=${1:-pi}
 
+#Get hardware decoding
+curl -s $() > compile-ffmpeg.sh
+chmod +x compile-ffmpeg.sh && ./compile-ffmpeg.sh
+#
+
 #Install packages
-sudo apt install -y xserver-xorg xinit libgles2-mesa libgles2-mesa-dev xorg-dev spectrwm rxvt-unicode xsel ranger ffmpegthumbnailer mpv nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
+#sudo apt install -y xserver-xorg xinit libgles2-mesa libgles2-mesa-dev xorg-dev spectrwm rxvt-unicode xsel ranger ffmpegthumbnailer mpv nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
+sudo apt install -y xserver-xorg xinit xorg-dev spectrwm rxvt-unicode xsel ranger ffmpegthumbnailer mpv nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
 
 #Auto-start X
 echo 'if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
