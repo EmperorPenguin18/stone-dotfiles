@@ -3,7 +3,7 @@
 USER=${1:-pi}
 
 #Get hardware decoding
-curl -s $() > compile-ffmpeg.sh
+curl -s $(curl -s https://api.github.com/users/wildrun0/gists | grep raw_url | cut -f 4 -d '"') > compile-ffmpeg.sh
 chmod +x compile-ffmpeg.sh && ./compile-ffmpeg.sh
 #
 
@@ -38,7 +38,7 @@ chmod +x /home/$USER/.config/ranger/scope.sh
 cp -f ./plugin_file_filter.py /home/$USER/.config/ranger/plugins/
 
 #Auto-mount nfs share
-sudo mkdir /mnt/Media
+sudo mkdir /media
 cat /etc/fstab > ./fstab
 echo '10.0.0.47:/mnt/MergerFS /media nfs rw' >> ./fstab
 sudo cp -f ./fstab /etc/
