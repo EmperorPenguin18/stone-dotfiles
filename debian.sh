@@ -1,15 +1,16 @@
 #!/bin/sh
 
+#Setup
 USER=${1:-pi}
+git clone https://github.com/EmperorPenguin18/stone-dotfiles
+cd stone-dotfiles
 
 #Get hardware decoding
 curl -s $(curl -s https://api.github.com/users/wildrun0/gists | grep raw_url | cut -f 4 -d '"') > compile-ffmpeg.sh
 chmod +x compile-ffmpeg.sh && ./compile-ffmpeg.sh
-#
 
 #Install packages
-#sudo apt install -y xserver-xorg xinit libgles2-mesa libgles2-mesa-dev xorg-dev spectrwm rxvt-unicode xsel ranger ffmpegthumbnailer mpv nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
-sudo apt install -y xserver-xorg xinit xorg-dev spectrwm rxvt-unicode xsel ranger ffmpegthumbnailer mpv nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
+sudo apt install -y xserver-xorg xinit libgles2-mesa xorg-dev spectrwm rxvt-unicode xsel ranger ffmpegthumbnailer mpv nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
 
 #Auto-start X
 echo 'if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
@@ -38,7 +39,7 @@ chmod +x /home/$USER/.config/ranger/scope.sh
 cp -f ./plugin_file_filter.py /home/$USER/.config/ranger/plugins/
 
 #Auto-mount nfs share
-sudo mkdir /media
+sudo mkdir -p /media
 cat /etc/fstab > ./fstab
 echo '10.0.0.47:/mnt/MergerFS /media nfs rw' >> ./fstab
 sudo cp -f ./fstab /etc/
