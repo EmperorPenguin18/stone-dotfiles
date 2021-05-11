@@ -10,7 +10,7 @@ curl -s $(curl -s https://api.github.com/users/wildrun0/gists | grep raw_url | c
 chmod +x compile-ffmpeg.sh && ./compile-ffmpeg.sh
 
 #Install packages
-sudo apt install -y xserver-xorg xinit libgles2-mesa xorg-dev spectrwm rxvt-unicode xsel ranger ffmpegthumbnailer mpv nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
+sudo apt install -y xserver-xorg xinit libgles2-mesa xorg-dev spectrwm rxvt-unicode xsel ranger w3m-img ffmpegthumbnailer mpv nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
 
 #Auto-start X
 echo 'if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
