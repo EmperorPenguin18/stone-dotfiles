@@ -1,11 +1,24 @@
 #!/bin/sh
 
+#First three steps of the instructions are replaced with the following:
+#1. Install Arch for ARM following https://archlinuxarm.org/platforms/armv8/broadcom/raspberry-pi-4
+#2. Perform the key init step as the root user (password root)
+#3. Run the following commands as root:
+#pacman -Syu
+#reboot
+#curl -sL https://raw.github.com/EmperorPenguin18/stone-dotfiles/main/setup.sh | sh
+
 USER=${2:-alarm}
 PASS1=$(dialog --stdout --passwordbox "Enter your password." 0 0)
 PASS2=$(dialog --stdout --passwordbox "Confirm password." 0 0)
 [ "$PASS1" != "$PASS2" ] && echo "Passwords do not match" && exit 1
 HOST=$(dialog --stdout --inputbox "Enter your hostname." 0 0)
 TIME=$(dialog --stdout --inputbox "Enter your timezone (eg America/Toronto)." 0 0)
+
+#Setup
+pacman -Sy git base-devel
+git clone https://github.com/EmperorPenguin18/stone-dotfiles /home/$USER/stone-dotfiles
+cd /home/$USER/stone-dotfiles
 
 #Configure stuff
 printf "$PASS1\n$PASS1\n" | passwd
@@ -15,14 +28,18 @@ ln -sf /usr/share/zoneinfo/$TIME /etc/localtime
 timedatectl set-timezone $TIME
 
 #Install packages
-pacman -S git base-devel xorg xorg-xinit spectrwm rxvt-unicode xsel alsa-utils ranger nfs-utils unclutter pyalpm python-commonmark --noconfirm --needed
+pacman -S xorg xorg-xinit spectrwm rxvt-unicode xsel alsa-utils ranger nfs-utils unclutter pyalpm python-commonmark --noconfirm --needed
 su $USER -c "git clone https://aur.archlinux.org/pikaur.git"
 cd pikaur
 su $USER -c "makepkg --noconfirm"
 pacman -U *.pkg* --noconfirm --needed
 cd ../
 rm -r pikaur
-pikaur -S xf86-input-joystick ffmpeg-mmal --noconfirm
+pikaur -S xf86-input-joystick --noconfirm
+
+#Video stuff
+su $USER -c "makepkg --noconfirm"
+pacman -U *.pkg* --noconfirm --needed
 pacman -S ffmpegthumbnailer mpv --noconfirm --needed
 
 #Auto-login as user
