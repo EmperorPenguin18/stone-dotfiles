@@ -28,14 +28,14 @@ ln -sf /usr/share/zoneinfo/$TIME /etc/localtime
 timedatectl set-timezone $TIME
 
 #Install packages
-pacman -S xorg xorg-xinit spectrwm rxvt-unicode xsel alsa-utils ranger nfs-utils unclutter pyalpm python-commonmark --noconfirm --needed
+pacman -S xorg xorg-xinit spectrwm rxvt-unicode xsel alsa-utils ranger w3m nfs-utils unclutter pyalpm python-commonmark --noconfirm --needed
 su $USER -c "git clone https://aur.archlinux.org/pikaur.git"
 cd pikaur
 su $USER -c "makepkg --noconfirm"
 pacman -U *.pkg* --noconfirm --needed
 cd ../
 rm -r pikaur
-pikaur -S xf86-input-joystick --noconfirm
+pikaur -S xf86-input-joystick all-repository-fonts --noconfirm
 
 #Video stuff
 su $USER -c "makepkg --noconfirm"
