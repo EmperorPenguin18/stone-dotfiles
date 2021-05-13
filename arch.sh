@@ -6,7 +6,7 @@
 #3. Run the following commands as root:
 #pacman -Syu
 #reboot
-#curl -sL https://raw.github.com/EmperorPenguin18/stone-dotfiles/main/setup.sh | sh
+#curl -sL https://raw.github.com/EmperorPenguin18/stone-dotfiles/main/arch.sh | sh
 
 USER=${2:-alarm}
 PASS1=$(dialog --stdout --passwordbox "Enter your password." 0 0)
@@ -16,7 +16,7 @@ HOST=$(dialog --stdout --inputbox "Enter your hostname." 0 0)
 TIME=$(dialog --stdout --inputbox "Enter your timezone (eg America/Toronto)." 0 0)
 
 #Setup
-pacman -Sy git base-devel
+pacman -Sy git base-devel --noconfirm --needed
 git clone https://github.com/EmperorPenguin18/stone-dotfiles /home/$USER/stone-dotfiles
 cd /home/$USER/stone-dotfiles
 
