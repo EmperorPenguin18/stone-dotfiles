@@ -7,7 +7,6 @@ url='https://www.ffmpeg.org/'
 license=('GPL3')
 depends=(
   alsa-lib
-  aom
   bzip2
   fontconfig
   fribidi
@@ -21,12 +20,11 @@ depends=(
   libbluray.so
   libdav1d.so
   libdrm
+  libfdk-aac
   libfreetype.so
   libiec61883
-  libmfx
   libmodplug
   libpulse
-  librav1e.so
   libraw1394
   libsoxr
   libssh
@@ -56,7 +54,6 @@ depends=(
   speex
   srt
   v4l-utils
-  vmaf
   xz
   zlib
 )
@@ -64,15 +61,13 @@ makedepends=(
   amf-headers
   avisynthplus
   clang
-  ffnvcodec-headers
   git
   ladspa
   nasm
 )
 optdepends=('avisynthplus: for reading AviSynth scripts as input'
             'intel-media-sdk: for Intel Quick Sync Video'
-            'ladspa: for LADSPA filters'
-            'nvidia-utils: Nvidia NVDEC/NVENC support')
+            'ladspa: for LADSPA filters')
 provides=('libavcodec.so' 'libavdevice.so' 'libavfilter.so' 'libavformat.so'
           'libavutil.so' 'libpostproc.so' 'libswresample.so' 'libswscale.so'
           'ffmpeg')
@@ -111,7 +106,6 @@ build() {
         --enable-gnutls \
         --enable-gpl \
         --enable-ladspa \
-        --enable-libaom \
         --enable-libass \
         --enable-libbluray \
         --enable-libcdio \
@@ -123,7 +117,6 @@ build() {
         --enable-libgsm \
         --enable-libiec61883 \
         --enable-libjack \
-        --enable-libmfx \
         --enable-libmodplug \
         --enable-libmp3lame \
         --enable-libopencore_amrnb \
@@ -131,7 +124,6 @@ build() {
         --enable-libopenjpeg \
         --enable-libopus \
         --enable-libpulse \
-        --enable-librav1e \
         --enable-libsoxr \
         --enable-libspeex \
         --enable-libsrt \
@@ -139,7 +131,6 @@ build() {
         --enable-libtheora \
         --enable-libv4l2 \
         --enable-libvidstab \
-        --enable-libvmaf \
         --enable-libvorbis \
         --enable-libvpx \
         --enable-libwebp \
@@ -151,8 +142,6 @@ build() {
         --enable-libzimg \
         --enable-mmal \
         --enable-nonfree \
-        --enable-nvdec \
-        --enable-nvenc \
         --enable-omx \
         --enable-omx-rpi \
         --enable-shared \
