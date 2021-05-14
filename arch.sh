@@ -8,39 +8,39 @@
 #reboot
 #curl -sL https://raw.github.com/EmperorPenguin18/stone-dotfiles/main/arch.sh | sh
 
+#Setup
 USER=${2:-alarm}
 PASS1=$(dialog --stdout --passwordbox "Enter your password." 0 0)
 PASS2=$(dialog --stdout --passwordbox "Confirm password." 0 0)
 [ "$PASS1" != "$PASS2" ] && echo "Passwords do not match" && exit 1
 HOST=$(dialog --stdout --inputbox "Enter your hostname." 0 0)
 TIME=$(dialog --stdout --inputbox "Enter your timezone (eg America/Toronto)." 0 0)
-
-#Setup
 pacman -Sy git base-devel --noconfirm --needed
 git clone https://github.com/EmperorPenguin18/stone-dotfiles /home/$USER/stone-dotfiles
 cd /home/$USER/stone-dotfiles
 
-#Configure stuff
+#System configuration
 printf "$PASS1\n$PASS1\n" | passwd
 printf "$PASS1\n$PASS1\n" | passwd $USER
 echo "$HOST" > /etc/hostname
 ln -sf /usr/share/zoneinfo/$TIME /etc/localtime
 timedatectl set-timezone $TIME
 
+#Hardware acceleration
+pacman -S alsa-lib bzip2 fontconfig fribidi gmp gnutls gsm jack lame libass.so libavc1394 libbluray.so libdav1d.so libdrm libfdk-aac libfreetype.so libiec61883 libmodplug libpulse libraw1394 libsoxr libssh libtheora libva.so libva-drm.so libva-x11.so libvdpau libvidstab.so libvorbisenc.so libvorbis.so libvpx.so libwebp libx11 libx264.so libx265.so libxcb libxext libxml2 libxv libxvidcore.so libzimg.so opencore-amr openjpeg2 opus sdl2 speex srt v4l-utils xz zlib --noconfirm --needed
+su $USER -c "makepkg --noconfirm"
+pacman -U *.pkg* --noconfirm --needed
+
 #Install packages
-pacman -S xorg xorg-xinit spectrwm rxvt-unicode xsel alsa-utils ranger w3m nfs-utils unclutter pyalpm python-commonmark --noconfirm --needed
+pacman -S xorg xorg-xinit spectrwm rxvt-unicode xsel alsa-utils ranger w3m ffmpegthumbnailer mpv nfs-utils unclutter pyalpm python-commonmark --noconfirm --needed
 su $USER -c "git clone https://aur.archlinux.org/pikaur.git"
 cd pikaur
 su $USER -c "makepkg --noconfirm"
 pacman -U *.pkg* --noconfirm --needed
 cd ../
 rm -r pikaur
+gpg --recv-key E23B7E70B467F0BF
 pikaur -S xf86-input-joystick all-repository-fonts --noconfirm
-
-#Video stuff
-su $USER -c "makepkg --noconfirm"
-pacman -U *.pkg* --noconfirm --needed
-pacman -S ffmpegthumbnailer mpv --noconfirm --needed
 
 #Auto-login as user
 mkdir /etc/systemd/system/getty@tty1.service.d
