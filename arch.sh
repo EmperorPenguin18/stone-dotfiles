@@ -14,6 +14,7 @@ dotfile ()
   cp -f "$DIR"/"$1" "$2"
   if file -i "$2"/"$1" | grep shellscript; then
     chmod +x "$2"/"$1"
+  fi
 }
 
 #Setup
