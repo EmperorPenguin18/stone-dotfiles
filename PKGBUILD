@@ -18,6 +18,7 @@ depends=(
   libass.so
   libavc1394
   libbluray.so
+  libcdio
   libdav1d.so
   libdrm
   libfdk-aac
