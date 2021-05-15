@@ -18,6 +18,10 @@ dotfile ()
 }
 
 #Setup
+if [ "$(id -u)" -ne 0 ]; then
+  echo "This script must be run as root"
+  exit 1
+fi
 USER=${2:-alarm}
 PASS1=$(dialog --stdout --passwordbox "Enter your password." 0 0)
 PASS2=$(dialog --stdout --passwordbox "Confirm password." 0 0)
@@ -37,7 +41,7 @@ ln -sf /usr/share/zoneinfo/$TIME /etc/localtime
 timedatectl set-timezone $TIME
 
 #Hardware acceleration
-pacman -S alsa-lib bzip2 fontconfig fribidi gmp gnutls gsm jack lame libass.so libavc1394 libbluray.so libdav1d.so libdrm libfdk-aac libfreetype.so libiec61883 libmodplug libpulse libraw1394 libsoxr libssh libtheora libva.so libva-drm.so libva-x11.so libvdpau libvidstab.so libvorbisenc.so libvorbis.so libvpx.so libwebp libx11 libx264.so libx265.so libxcb libxext libxml2 libxv libxvidcore.so libzimg.so opencore-amr openjpeg2 opus sdl2 speex srt v4l-utils xz zlib amf-headers avisynthplus clang ladspa nasm --noconfirm --needed
+pacman -S alsa-lib bzip2 fontconfig fribidi gmp gnutls gsm jack lame libass.so libavc1394 libbluray.so libdav1d.so libdrm libfdk-aac libfreetype.so libiec61883 libmodplug libpulse libraw1394 libsoxr libssh libtheora libva.so libva-drm.so libva-x11.so libvdpau libvidstab.so libvorbisenc.so libvorbis.so libvpx.so libwebp libx11 libx264.so libx265.so libxcb libxext libxml2 libxv libxvidcore.so libzimg.so opencore-amr openjpeg2 opus sdl2 speex srt v4l-utils xz zlib amf-headers avisynthplus clang ladspa nasm --asdeps --noconfirm --needed
 su $USER -c "makepkg --noconfirm"
 pacman -U *.pkg* --noconfirm --needed
 
