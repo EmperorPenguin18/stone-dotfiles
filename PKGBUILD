@@ -18,7 +18,7 @@ depends=(
   libass.so
   libavc1394
   libbluray.so
-  libcdio
+  libcdio-paranoia
   libdav1d.so
   libdrm
   libfdk-aac
