@@ -8,6 +8,14 @@
 #reboot
 #curl -sL https://raw.github.com/EmperorPenguin18/stone-dotfiles/main/arch.sh | sh
 
+dotfile ()
+{
+  mkdir -p "$2"
+  cp -f "$DIR"/"$1" "$2"
+  if file -i "$2"/"$1" | grep shellscript; then
+    chmod +x "$2"/"$1"
+}
+
 #Setup
 USER=${2:-alarm}
 PASS1=$(dialog --stdout --passwordbox "Enter your password." 0 0)
@@ -16,8 +24,9 @@ PASS2=$(dialog --stdout --passwordbox "Confirm password." 0 0)
 HOST=$(dialog --stdout --inputbox "Enter your hostname." 0 0)
 TIME=$(dialog --stdout --inputbox "Enter your timezone (eg America/Toronto)." 0 0)
 pacman -Sy git base-devel --noconfirm --needed
-git clone https://github.com/EmperorPenguin18/stone-dotfiles /home/$USER/stone-dotfiles
+su $USER -c "git clone https://github.com/EmperorPenguin18/stone-dotfiles /home/$USER/stone-dotfiles"
 cd /home/$USER/stone-dotfiles
+DIR="/home/$USER/stone-dotfiles"
 
 #System configuration
 printf "$PASS1\n$PASS1\n" | passwd
@@ -43,8 +52,7 @@ gpg --recv-key E23B7E70B467F0BF
 pikaur -S xf86-input-joystick all-repository-fonts --noconfirm
 
 #Auto-login as user
-mkdir /etc/systemd/system/getty@tty1.service.d
-cp -f ./override.conf /etc/systemd/system/getty@tty1.service.d/
+dotfile "override.conf" "/etc/systemd/system/getty@tty1.service.d/"
 sed -i "s/USER/$USER/g" /etc/systemd/system/getty@tty1.service.d/override.conf
 
 #Auto-start X
@@ -53,25 +61,20 @@ echo '  exec startx' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
 echo 'fi' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
 
 #Config files
-cp -f ./.xinitrc /home/$USER/
-cp -f ./.spectrwm.conf /home/$USER/
-mkdir -p /home/$USER/.config/mpv
-cp -f ./mpv.conf /home/$USER/.config/mpv/
-cp -f ./input.conf /home/$USER/.config/mpv/
-mkdir -p /etc/X11/xorg.conf.d
-cp -f ./51-joystick.conf /etc/X11/xorg.conf.d/
-cp -f ./config.txt /boot
-git clone https://github.com/muennich/urxvt-perls
-mkdir -p /home/$USER/.urxvt/ext
-cp -f ./urxvt-perls/keyboard-select /home/$USER/.urxvt/ext/
-cp -f ./urxvt-perls/deprecated/clipboard /home/$USER/.urxvt/ext/
-cp -f ./urxvt-perls/deprecated/url-select /home/$USER/.urxvt/ext/
-cp -f ./.Xresources /home/$USER/
-mkdir -p /home/$USER/.config/ranger/plugins
-cp -f ./rc.conf /home/$USER/.config/ranger/
-cp -f ./scope.sh /home/$USER/.config/ranger/
-chmod +x /home/$USER/.config/ranger/scope.sh
-cp -f ./plugin_file_filter.py /home/$USER/.config/ranger/plugins/
+dotfile ".xinitrc" "/home/$USER/"
+dotfile ".spectrwm.conf" "/home/$USER/"
+dotfile "mpv.conf" "/home/$USER/.config/mpv/"
+dotfile "input.conf" "/home/$USER/.config/mpv/"
+dotfile "51-joystick.conf" "/etc/X11/xorg.conf.d/"
+dotfile "config.txt" "/boot"
+su $USER -c "git clone https://github.com/muennich/urxvt-perls"
+dotfile "urxvt-perls/keyboard-select" "/home/$USER/.urxvt/ext/"
+dotfile "urxvt-perls/deprecated/clipboard" "/home/$USER/.urxvt/ext/"
+dotfile "urxvt-perls/deprecated/url-select" "/home/$USER/.urxvt/ext/"
+dotfile ".Xresources" "/home/$USER/"
+dotfile "rc.conf" "/home/$USER/.config/ranger/"
+dotfile "scope.sh" "/home/$USER/.config/ranger/"
+dotfile "plugin_file_filter.py" "/home/$USER/.config/ranger/plugins/"
 
 #Auto-mount nfs share
 mkdir /mnt/Media
