@@ -76,7 +76,7 @@ dotfile ".xinitrc" "/home/$USER/"
 dotfile ".spectrwm.conf" "/home/$USER/"
 dotfile "mpv.conf" "/home/$USER/.config/mpv/"
 dotfile "input.conf" "/home/$USER/.config/mpv/"
-dotfile "51-joystick.conf" "/etc/X11/xorg.conf.d/"
+dotfile "51-joystick-mpv.conf" "/etc/X11/xorg.conf.d/"
 dotfile "config.txt" "/boot"
 su $USER -c "git clone https://github.com/muennich/urxvt-perls"
 dotfile "urxvt-perls/keyboard-select" "/home/$USER/.urxvt/ext/"
@@ -86,6 +86,7 @@ dotfile ".Xresources" "/home/$USER/"
 dotfile "rc.conf" "/home/$USER/.config/ranger/"
 dotfile "scope.sh" "/home/$USER/.config/ranger/"
 dotfile "plugin_file_filter.py" "/home/$USER/.config/ranger/plugins/"
+dotfile "vlcrc" "/home/$USER/.config/vlc/"
 
 #Auto-mount nfs share
 mkdir -p /media
