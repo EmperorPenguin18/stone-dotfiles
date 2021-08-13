@@ -3,7 +3,7 @@ pkgver=4.0.0.r15273.g03674aee04
 pkgrel=1
 pkgdesc="A multi-platform MPEG, VCD/DVD, and DivX player (GIT Version)"
 url='https://www.videolan.org/vlc/'
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'armv7h')
 license=('LGPL2.1' 'GPL2')
 depends=('a52dec' 'libdvbpsi' 'libxpm' 'libdca' 'libproxy' 'lua'
          'libmatroska' 'taglib' 'libmpcdec' 'ffmpeg' 'faad2' 'libupnp' 'libmad'
@@ -12,7 +12,7 @@ depends=('a52dec' 'libdvbpsi' 'libxpm' 'libdca' 'libproxy' 'lua'
          'fribidi' 'harfbuzz' 'fontconfig' 'libxml2' 'gnutls' 'wayland-protocols'
          'libidn' 'aribb24' 'qt5-quickcontrols2' 'qt5-graphicaleffects' 'libmicrodns>=0.1.2'
          'libplacebo' 'libixml.so' 'avahi' 'gst-plugins-base-libs' 'libavc1394'
-         'libdc1394' 'libva-vdpau-driver' 'libva-intel-driver' 'libbluray' 'flac' 'twolame'
+         'libdc1394' 'libva-vdpau-driver' 'libbluray' 'flac' 'twolame'
          'vcdimager' 'libmtp' 'systemd-libs' 'libcdio' 'ttf-freefont' 'ttf-dejavu' 'libnfs'
          'mpg123' 'live-media' 'libdvdread' 'libdvdnav' 'libogg' 'libmodplug' 'libvpx'
          'libvorbis' 'speex' 'opus' 'libtheora' 'libpng' 'libjpeg-turbo' 'librsvg'
