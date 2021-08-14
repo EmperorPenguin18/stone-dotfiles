@@ -6,11 +6,11 @@ git clone https://github.com/EmperorPenguin18/stone-dotfiles
 cd stone-dotfiles
 
 #Get hardware decoding
-curl -s $(curl -s https://api.github.com/users/wildrun0/gists | grep raw_url | cut -f 4 -d '"') > compile-ffmpeg.sh
-chmod +x compile-ffmpeg.sh && ./compile-ffmpeg.sh
+#curl -s $(curl -s https://api.github.com/users/wildrun0/gists | grep raw_url | cut -f 4 -d '"') > compile-ffmpeg.sh
+#chmod +x compile-ffmpeg.sh && ./compile-ffmpeg.sh
 
 #Install packages
-sudo apt install -y xserver-xorg xinit libgles2-mesa xorg-dev spectrwm rxvt-unicode xsel ranger w3m-img ffmpegthumbnailer mpv nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
+sudo apt install -y xserver-xorg xinit libgles2-mesa xorg-dev spectrwm rxvt-unicode xsel ranger w3m-img ffmpegthumbnailer vlc nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
 
 #Auto-start X
 echo 'if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
@@ -24,7 +24,7 @@ mkdir -p /home/$USER/.config/mpv
 cp -f ./mpv.conf /home/$USER/.config/mpv/
 cp -f ./input.conf /home/$USER/.config/mpv/
 sudo mkdir -p /etc/X11/xorg.conf.d
-sudo cp -f ./51-joystick.conf /etc/X11/xorg.conf.d/
+sudo cp -f ./51-joystick-vlc.conf /etc/X11/xorg.conf.d/
 sudo cp -f ./config.txt /boot
 git clone https://github.com/muennich/urxvt-perls
 mkdir -p /home/$USER/.urxvt/ext
@@ -37,6 +37,8 @@ cp -f ./rc.conf /home/$USER/.config/ranger/
 cp -f ./scope.sh /home/$USER/.config/ranger/
 chmod +x /home/$USER/.config/ranger/scope.sh
 cp -f ./plugin_file_filter.py /home/$USER/.config/ranger/plugins/
+mkdir -p /home/$USER/.config/vlc
+cp -f ./vlcrc /home/$USER/.config/vlc/vlcrc
 
 #Auto-mount nfs share
 sudo mkdir -p /media
