@@ -35,7 +35,7 @@ This will take a while. All the video decoding stuff needs to be manually compil
 
 4. Change the line in /etc/fstab to mount your network share
 5. Reboot. You should automatically enter into ranger (file manager).
-6. You can navigate ranger and control mpv (video player) with a gamepad.
+6. You can navigate ranger and control vlc (video player) with a gamepad.
 ![alt text](https://raw.githubusercontent.com/EmperorPenguin18/stone-dotfiles/main/diagram.png)
 
 ### Future:
