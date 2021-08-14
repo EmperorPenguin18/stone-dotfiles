@@ -8,6 +8,9 @@ qt-privacy-ask=0
 
 [core] # core program
 
+# Fullscreen video output (boolean)
+fullscreen=1
+
 # Show media title on video (boolean)
 video-title-show=0
 
@@ -18,10 +21,10 @@ video-title-show=0
 #sub-track=-1
 
 # Audio language (string)
-#audio-language=
+audio-language=ja,jp,jpn,en,eng,de,deu,ger
 
 # Subtitle language (string)
-#sub-language=
+sub-language=enm,en,eng,de,deu,ger
 
 # Play and exit (boolean)
 play-and-exit=1
