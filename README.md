@@ -3,9 +3,6 @@ Configuration for Pi
 
 Turns your Raspberry Pi into a streaming box. Watch videos over a network share all controllable from the couch.
 
-### Known issues:
-- No hardware acceleration (makes it pretty much unusable)
-
 ### How to use:
 1. Install Raspberry Pi OS Lite (32-bit) to a storage device of at least 8GB. Plug that in to a Raspberry Pi of choice (Pi 4 with cooling recommended).
 2. Boot up and log in (user: pi pass: raspberry).
@@ -31,7 +28,7 @@ Localisation -> WLAN Country
 sudo apt install git
 curl -sL https://raw.github.com/EmperorPenguin18/stone-dotfiles/main/debian.sh | sh
 ```
-This will take a while. All the video decoding stuff needs to be manually compiled.
+This will take a while. There's lots of software to install.
 
 4. Change the line in /etc/fstab to mount your network share
 5. Reboot. You should automatically enter into ranger (file manager).
