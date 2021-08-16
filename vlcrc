@@ -3,10 +3,19 @@
 # Start in minimal view (without menus) (boolean)
 qt-minimal-view=1
 
+# Continue playback? (integer)
+qt-continue=2
+
 # Ask for network policy at start (boolean)
 qt-privacy-ask=0
 
+# Display background cone or art (boolean)
+qt-bgcone=0
+
 [core] # core program
+
+# Audio output module (string)
+aout=alsa
 
 # Fullscreen video output (boolean)
 fullscreen=1
