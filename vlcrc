@@ -1,3 +1,11 @@
+[x264] # H.264/MPEG-4 Part 10/AVC encoder (x264)
+
+# Default preset setting used (string)
+sout-x264-preset=ultrafast
+
+# Default tune setting used (string)
+sout-x264-tune=animation
+
 [qt] # Qt interface
 
 # Start in minimal view (without menus) (boolean)
