@@ -10,7 +10,7 @@ cd stone-dotfiles
 #chmod +x compile-ffmpeg.sh && ./compile-ffmpeg.sh
 
 #Install packages
-sudo apt install -y xserver-xorg xinit libgles2-mesa xorg-dev spectrwm rxvt-unicode xsel ranger w3m-img ffmpegthumbnailer vlc nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
+sudo apt install -y xserver-xorg xinit xserver-xorg-video-fbdev xserver-xorg-video-fbturbo spectrwm rxvt-unicode xsel ranger w3m-img ffmpegthumbnailer mpv nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
 
 #Auto-start X
 echo 'if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
@@ -24,7 +24,7 @@ mkdir -p /home/$USER/.config/mpv
 cp -f ./mpv.conf /home/$USER/.config/mpv/
 cp -f ./input.conf /home/$USER/.config/mpv/
 sudo mkdir -p /etc/X11/xorg.conf.d
-sudo cp -f ./51-joystick-vlc.conf /etc/X11/xorg.conf.d/
+sudo cp -f ./51-joystick-mpv.conf /etc/X11/xorg.conf.d/
 sudo cp -f ./config.txt /boot
 git clone https://github.com/muennich/urxvt-perls
 mkdir -p /home/$USER/.urxvt/ext
