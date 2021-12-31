@@ -2,6 +2,7 @@
 
 #Setup
 USER=${1:-pi}
+sudo apt install git
 git clone https://github.com/EmperorPenguin18/stone-dotfiles
 cd stone-dotfiles
 
@@ -47,6 +48,8 @@ cp -f ./pv.sh /home/$USER/.config/lf/
 chmod +x /home/$USER/.config/lf/pv.sh
 cp -f ./draw_img.sh /home/$USER/.config/lf/
 chmod +x /home/$USER/.config/lf/draw_img.sh
+cp -f ./jellyfin.sh /home/$USER/jellyfin.sh
+chmod +x /home/$USER/jellyfin.sh
 
 #Auto-mount nfs share
 sudo mkdir -p /media
