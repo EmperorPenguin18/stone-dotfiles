@@ -10,6 +10,7 @@ case "$1" in
         [ ! -f "${CACHE}.jpg" ] && \
             ffmpegthumbnailer -i "$1" -o "${CACHE}.jpg" -s 0 -q 5
         ~/.config/lf/draw_img.sh "${CACHE}.jpg"
+        ~/jellyfin.sh "$1"
         ;;
     *.bmp|*.jpg|*.jpeg|*.png|*.xpm|*.webp|*.gif|*.jfif)
         ~/.config/lf/draw_img.sh "$1"
