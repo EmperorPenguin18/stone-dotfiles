@@ -10,7 +10,9 @@ cd stone-dotfiles
 #chmod +x compile-ffmpeg.sh && ./compile-ffmpeg.sh
 
 #Install packages
-sudo apt install -y xserver-xorg xinit xserver-xorg-video-fbdev xserver-xorg-video-fbturbo spectrwm rxvt-unicode xsel ranger w3m-img ffmpegthumbnailer mpv nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
+sudo apt install -y xserver-xorg xinit xserver-xorg-video-dummy spectrwm rxvt-unicode xsel golang w3m-img ffmpegthumbnailer mpv nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
+env CGO_ENABLED=0 GO111MODULE=on go get -u -ldflags="-s -w" github.com/gokcehan/lf
+sudo cp -f ./go/bin/lf /usr/bin/
 
 #Auto-start X
 echo 'if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
@@ -39,6 +41,12 @@ chmod +x /home/$USER/.config/ranger/scope.sh
 cp -f ./plugin_file_filter.py /home/$USER/.config/ranger/plugins/
 mkdir -p /home/$USER/.config/vlc
 cp -f ./vlcrc /home/$USER/.config/vlc/vlcrc
+mkdir -p /home/$USER/.config/lf
+cp -f ./lfrc /home/$USER/.config/lf/
+cp -f ./pv.sh /home/$USER/.config/lf/
+chmod +x /home/$USER/.config/lf/pv.sh
+cp -f ./draw_img.sh /home/$USER/.config/lf/
+chmod +x /home/$USER/.config/lf/draw_img.sh
 
 #Auto-mount nfs share
 sudo mkdir -p /media
