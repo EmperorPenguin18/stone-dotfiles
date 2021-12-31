@@ -3,4 +3,4 @@ xrdb ~/.Xresources
 amixer sset HDMI 100%
 unclutter &
 spectrwm &
-exec urxvt -e ranger /media
+exec urxvt -e lf /media
