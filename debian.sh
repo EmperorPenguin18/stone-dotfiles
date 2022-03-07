@@ -13,7 +13,7 @@ cd stone-dotfiles
 #Install packages
 sudo apt install -y xserver-xorg xinit xserver-xorg-video-dummy spectrwm rxvt-unicode xsel golang w3m-img ffmpegthumbnailer mpv nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
 env CGO_ENABLED=0 GO111MODULE=on go get -u -ldflags="-s -w" github.com/gokcehan/lf
-sudo cp -f ./go/bin/lf /usr/bin/
+sudo cp -f /home/$USER/go/bin/lf /usr/bin/
 
 #Auto-start X
 echo 'if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
