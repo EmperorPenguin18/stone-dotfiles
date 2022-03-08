@@ -33,7 +33,7 @@ DIR="/home/$USER/stone-dotfiles"
 #pacman -U *.pkg* --noconfirm --needed
 
 #Install packages
-pacman -S xorg xorg-xinit spectrwm rxvt-unicode xsel alsa-utils file jq mediainfo w3m ffmpegthumbnailer mpv nfs-utils unclutter fakeroot make pyalpm python-commonmark go --noconfirm --needed
+pacman -S xorg xorg-xinit spectrwm rxvt-unicode xsel alsa-utils file jq mediainfo w3m ffmpegthumbnailer mpv nfs-utils unclutter pyalpm python-commonmark go --noconfirm --needed
 su $USER -c "git clone https://aur.archlinux.org/pikaur.git"
 cd pikaur
 su $USER -c "makepkg --noconfirm"
