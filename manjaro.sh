@@ -40,7 +40,7 @@ su $USER -c "makepkg --noconfirm"
 pacman -U *.pkg* --noconfirm --needed
 cd ../
 rm -r pikaur
-install_aur xf86-input-joystick all-repository-fonts lf
+install_aur all-repository-fonts lf
 
 #Auto-login as user
 dotfile "override.conf" "/etc/systemd/system/getty@tty1.service.d/"
@@ -73,7 +73,7 @@ dotfile "jellyfin.sh" "/home/$USER/"
 
 #Auto-mount nfs share
 mkdir -p /media
-echo '10.0.0.47:/mnt/MergerFS /media nfs rw' >> /etc/fstab
+echo '10.0.0.47:/mnt/MergerFS /media nfs rw,x-systemd.automount' >> /etc/fstab
 
 #Clean up
 chown -R $USER:$USER /home/$USER
