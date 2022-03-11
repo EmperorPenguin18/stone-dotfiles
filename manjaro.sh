@@ -40,6 +40,15 @@ su $USER -c "makepkg --noconfirm"
 pacman -U *.pkg* --noconfirm --needed
 cd ../
 rm -r pikaur
+su $USER -c "git clone https://aur.archlinux.org/xf86-input-joystick.git"
+cd xf86-input-joystick
+sed -i 's/arch=.*/arch=\(i686 x86_64 aarch64\)/g' PKGBUILD
+sed -i "s/makedepends=.*/makedepends=\('xorg-server-devel' 'xorgproto'\)/g" PKGBUILD
+sed -i '/conflicts/d' PKGBUILD
+su $USER -c "makepkg --noconfirm --skippgpcheck"
+pacman -U *.pkg* --noconfirm --needed
+cd ../
+rm -r xf86-input-joystick
 install_aur all-repository-fonts lf
 
 #Auto-login as user
