@@ -1,5 +1,7 @@
 #!/bin/sh
 
+CACHE="/home/pi/.cache/$(echo $1 | sed 's|/||g;s| ||g' | cut -d '.' -f -1)"
+
 case "$1" in
     *.tar*) tar tf "$1";;
     *.zip) unzip -l "$1";;
