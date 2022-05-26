@@ -19,6 +19,7 @@ mkdir build && cd build
 cmake .. -DCPACK_GENERATOR="DEB"
 cmake --build . --target package
 sudo dpkg -i antimicrox*.deb
+cd ../../
 env CGO_ENABLED=0 GO111MODULE=on go get -u -ldflags="-s -w" github.com/gokcehan/lf
 sudo cp -f /home/$USER/go/bin/lf /usr/bin/
 #pistol
