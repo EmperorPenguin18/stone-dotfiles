@@ -12,10 +12,16 @@ cd stone-dotfiles
 
 #Install packages
 sudo apt install -y sway kitty file jq mediainfo golang imagemagick ffmpegthumbnailer mpv nfs-common
+git clone https://github.com/AntiMicroX/antimicrox
+sudo apt install -y cmake extra-cmake-modules qttools5-dev qttools5-dev-tools libsdl2-dev libxi-dev libxtst-dev libx11-dev itstool gettext
+cd antimicrox
+mkdir build && cd build
+cmake .. -DCPACK_GENERATOR="DEB"
+cmake --build . --target package
+sudo dpkg -i antimicrox*.deb
 env CGO_ENABLED=0 GO111MODULE=on go get -u -ldflags="-s -w" github.com/gokcehan/lf
 sudo cp -f /home/$USER/go/bin/lf /usr/bin/
 #pistol
-#antimicrox
 
 #Auto-start X
 PROFILE="$(ls -a /home/$USER | grep profile)"
@@ -55,6 +61,9 @@ cp -f ./jellyfin.sh /home/$USER/jellyfin.sh
 chmod +x /home/$USER/jellyfin.sh
 mkdir -p /home/$USER/.config/sway
 cp -f ./sway.txt /home/$USER/.config/sway/config
+cp -f ./mpv.gamecontroller.amgp /home/$USER/
+sudo cp -f ./uinput.service /etc/systemd/system/
+sudo systemctl enable uinput
 
 #Auto-mount nfs share
 sudo mkdir -p /media
