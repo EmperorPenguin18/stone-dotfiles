@@ -11,14 +11,17 @@ cd stone-dotfiles
 #chmod +x compile-ffmpeg.sh && ./compile-ffmpeg.sh
 
 #Install packages
-sudo apt install -y xserver-xorg xinit xserver-xorg-video-dummy spectrwm rxvt-unicode xsel file jq mediainfo golang w3m-img ffmpegthumbnailer mpv nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
+sudo apt install -y sway kitty file jq mediainfo golang imagemagick ffmpegthumbnailer mpv nfs-common
 env CGO_ENABLED=0 GO111MODULE=on go get -u -ldflags="-s -w" github.com/gokcehan/lf
 sudo cp -f /home/$USER/go/bin/lf /usr/bin/
+#pistol
+#antimicrox
 
 #Auto-start X
-echo 'if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
-echo '  exec startx' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
-echo 'fi' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
+PROFILE="$(ls -a /home/$USER | grep profile)"
+echo 'if [ -z "${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then' >> /home/$USER/$PROFILE
+echo '  exec sway' >> /home/$USER/$PROFILE
+echo 'fi' >> /home/$USER/$PROFILE
 
 #Config files
 cp -f ./.xinitrc /home/$USER/
@@ -50,6 +53,8 @@ cp -f ./draw_img.sh /home/$USER/.config/lf/
 chmod +x /home/$USER/.config/lf/draw_img.sh
 cp -f ./jellyfin.sh /home/$USER/jellyfin.sh
 chmod +x /home/$USER/jellyfin.sh
+mkdir -p /home/$USER/.config/sway
+cp -f ./sway.txt /home/$USER/.config/sway/config
 
 #Auto-mount nfs share
 sudo mkdir -p /media
