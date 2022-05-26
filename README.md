@@ -31,9 +31,7 @@ This will take a while. There's lots of software to install.
 ![alt text](https://raw.githubusercontent.com/EmperorPenguin18/stone-dotfiles/main/diagram.png)
 
 ### Future:
-- Connect to Jellyfin
 - Nicer interface
-- Add Steam Link functionality
 - Improve font selection (Japanese characters)
 
 Yes this is a JoJo reference.
