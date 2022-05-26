@@ -63,8 +63,9 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 default_border none
-exec antimicrox --hidden --eventgen uinput mpv.gamecontroller.amgp
+seat * hide_cursor 8000
 exec amixer sset PCM 100%
 exec $term -e lf /media && swaymsg exit
+exec antimicrox --hidden --eventgen uinput mpv.gamecontroller.amgp
 
 include /etc/sway/config.d/*
