@@ -1,7 +1,5 @@
 # stone-dotfiles
-Configuration for Pi
-
-Turns your Raspberry Pi into a streaming box. Watch videos over a network share all controllable from the couch.
+Turns your Raspberry Pi into a minimal streaming box. Watch videos over a network share all controllable from the couch.
 
 ### How to use:
 1. Install [Raspberry Pi OS Lite (64-bit)](https://www.raspberrypi.com/software/) to a storage device of at least 8GB. Plug that in to a Raspberry Pi 4 with cooling.
@@ -10,12 +8,11 @@ Turns your Raspberry Pi into a streaming box. Watch videos over a network share 
 ```
 sudo apt update
 sudo apt dist-upgrade
-sudo reboot
+reboot
 sudo raspi-config
 ```
 Settings to change:  
 System -> Hostname (Optional)  
-System -> Boot -> Console Autologin  
 System -> Network at boot -> Yes  
 Interface -> SSH -> Yes (Optional)  
 Localisation -> Locale  
@@ -23,7 +20,6 @@ Localisation -> Timezone
 Localisation -> Keyboard  
 Localisation -> WLAN Country
 ```
-sudo apt install git
 curl -sL https://raw.github.com/EmperorPenguin18/stone-dotfiles/main/debian.sh | sh
 ```
 This will take a while. There's lots of software to install.
