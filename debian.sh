@@ -2,7 +2,7 @@
 
 #Setup
 USER=${1:-pi}
-sudo apt install git
+sudo apt install -y git
 git clone https://github.com/EmperorPenguin18/stone-dotfiles
 cd stone-dotfiles
 
@@ -13,7 +13,7 @@ cd stone-dotfiles
 #Install packages
 sudo apt install -y sway kitty file jq mediainfo golang imagemagick ffmpegthumbnailer mpv nfs-common
 git clone https://github.com/AntiMicroX/antimicrox
-sudo apt install -y cmake extra-cmake-modules qttools5-dev qttools5-dev-tools libsdl2-dev libxi-dev libxtst-dev libx11-dev itstool gettext
+sudo apt install -y xwayland cmake extra-cmake-modules qttools5-dev qttools5-dev-tools libsdl2-dev libxi-dev libxtst-dev libx11-dev itstool gettext
 cd antimicrox
 mkdir build && cd build
 cmake .. -DCPACK_GENERATOR="DEB"
