@@ -3,7 +3,7 @@ Turns your Raspberry Pi into a minimal streaming box. Watch videos over a networ
 
 ### How to use:
 1. Install [Raspberry Pi OS Lite (64-bit)](https://www.raspberrypi.com/software/) to a storage device of at least 8GB. Plug that in to a Raspberry Pi 4 with cooling.
-2. Boot up and enter your credentials.
+2. Boot up and enter your keyboard and credentials.
 3. Run the following commands:
 ```
 sudo apt update
@@ -13,11 +13,11 @@ sudo raspi-config
 ```
 Settings to change:  
 System -> Hostname (Optional)  
+System -> Boot -> Console Autologin  
 System -> Network at boot -> Yes  
 Interface -> SSH -> Yes (Optional)  
 Localisation -> Locale  
 Localisation -> Timezone  
-Localisation -> Keyboard  
 Localisation -> WLAN Country
 ```
 curl -sL https://raw.github.com/EmperorPenguin18/stone-dotfiles/main/debian.sh | sh
