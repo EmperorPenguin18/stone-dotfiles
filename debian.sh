@@ -22,8 +22,8 @@ sudo dpkg -i antimicrox*.deb
 cd ../../
 env CGO_ENABLED=0 GO111MODULE=on go get -u -ldflags="-s -w" github.com/gokcehan/lf
 sudo cp -f /home/$USER/go/bin/lf /usr/bin/
-env CGO_ENABLED=1 GO111MODULE=on go get -u github.com/doronbehar/pistol/cmd/pistol
-sudo cp -f /home/$USER/go/bin/pistol /usr/bin/
+#env CGO_ENABLED=1 GO111MODULE=on go get -u github.com/doronbehar/pistol/cmd/pistol
+#sudo cp -f /home/$USER/go/bin/pistol /usr/bin/
 
 #Auto-start X
 PROFILE="$(ls -a /home/$USER | grep profile)"
@@ -68,7 +68,8 @@ sudo cp -f ./uinput.service /etc/systemd/system/
 sudo systemctl enable uinput
 cp -f ./lf_kitty_preview /home/$USER/.config/lf/
 cp -f ./lf_kitty_clean /home/$USER/.config/lf/
-chmod +x /home/$USER/.config/lf/lf_kitty_{clean,preview}
+chmod +x /home/$USER/.config/lf/lf_kitty_clean
+chmod +x /home/$USER/.config/lf/lf_kitty_preview
 sudo cp -f ./vidthumb /usr/bin/
 sudo chmod +x /usr/bin/vidthumb
 
