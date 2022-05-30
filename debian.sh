@@ -72,6 +72,8 @@ chmod +x /home/$USER/.config/lf/lf_kitty_clean
 chmod +x /home/$USER/.config/lf/lf_kitty_preview
 sudo cp -f ./vidthumb /usr/bin/
 sudo chmod +x /usr/bin/vidthumb
+git clone https://github.com/johnodon/Transparent_Cursor_Theme
+sudo cp ./Transparent_Cursor_Theme/Transparent /usr/share/icons/
 
 #Auto-mount nfs share
 sudo mkdir -p /media
