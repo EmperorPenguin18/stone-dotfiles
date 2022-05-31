@@ -11,7 +11,7 @@ cd stone-dotfiles
 #chmod +x compile-ffmpeg.sh && ./compile-ffmpeg.sh
 
 #Install packages
-sudo apt install -y sway kitty file jq mediainfo golang imagemagick ffmpegthumbnailer mpv nfs-common
+sudo apt install -y sway kitty file jq mediainfo golang imagemagick uuid-runtime ffmpegthumbnailer mpv nfs-common
 git clone https://github.com/AntiMicroX/antimicrox
 sudo apt install -y xwayland cmake extra-cmake-modules qttools5-dev qttools5-dev-tools libsdl2-dev libxi-dev libxtst-dev libx11-dev itstool gettext
 cd antimicrox
