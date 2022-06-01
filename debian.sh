@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #Setup
-USER=${1:-pi}
+USER="$(ls /home | head -1)"
 sudo apt install -y git
 git clone https://github.com/EmperorPenguin18/stone-dotfiles
 cd stone-dotfiles
@@ -74,6 +74,8 @@ sudo cp -f ./vidthumb /usr/bin/
 sudo chmod +x /usr/bin/vidthumb
 git clone https://github.com/johnodon/Transparent_Cursor_Theme
 sudo cp -r ./Transparent_Cursor_Theme/Transparent /usr/share/icons/
+mkdir -p /home/$USER/.config/openbox
+cp -f ./rc.xml /home/$USER/.config/openbox/
 
 #Auto-mount nfs share
 sudo mkdir -p /media
