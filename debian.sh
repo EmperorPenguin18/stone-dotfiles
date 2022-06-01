@@ -11,9 +11,9 @@ cd stone-dotfiles
 #chmod +x compile-ffmpeg.sh && ./compile-ffmpeg.sh
 
 #Install packages
-sudo apt install -y sway kitty file jq mediainfo golang imagemagick uuid-runtime ffmpegthumbnailer mpv nfs-common
+sudo apt install -y xinit openbox unclutter kitty file jq mediainfo golang imagemagick uuid-runtime ffmpegthumbnailer mpv nfs-common
 git clone https://github.com/AntiMicroX/antimicrox
-sudo apt install -y xwayland cmake extra-cmake-modules qttools5-dev qttools5-dev-tools libsdl2-dev libxi-dev libxtst-dev libx11-dev itstool gettext
+sudo apt install -y cmake extra-cmake-modules qttools5-dev qttools5-dev-tools libsdl2-dev libxi-dev libxtst-dev libx11-dev itstool gettext
 cd antimicrox
 mkdir build && cd build
 cmake .. -DCPACK_GENERATOR="DEB"
@@ -28,7 +28,7 @@ sudo cp -f /home/$USER/go/bin/lf /usr/bin/
 #Auto-start X
 PROFILE="$(ls -a /home/$USER | grep profile)"
 echo 'if [ -z "${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then' >> /home/$USER/$PROFILE
-echo '  exec sway' >> /home/$USER/$PROFILE
+echo '  exec startx' >> /home/$USER/$PROFILE
 echo 'fi' >> /home/$USER/$PROFILE
 
 #Config files
@@ -73,7 +73,7 @@ chmod +x /home/$USER/.config/lf/lf_kitty_preview
 sudo cp -f ./vidthumb /usr/bin/
 sudo chmod +x /usr/bin/vidthumb
 git clone https://github.com/johnodon/Transparent_Cursor_Theme
-sudo cp ./Transparent_Cursor_Theme/Transparent /usr/share/icons/
+sudo cp -r ./Transparent_Cursor_Theme/Transparent /usr/share/icons/
 
 #Auto-mount nfs share
 sudo mkdir -p /media
