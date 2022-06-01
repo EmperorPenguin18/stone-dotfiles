@@ -2,5 +2,5 @@ xset s off -dpms
 xrdb ~/.Xresources
 amixer sset HDMI 100%
 unclutter &
-spectrwm &
-exec urxvt -e lf /media
+openbox &
+exec kitty -e lf /media
