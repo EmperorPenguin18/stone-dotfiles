@@ -11,15 +11,15 @@ cd stone-dotfiles
 #chmod +x compile-ffmpeg.sh && ./compile-ffmpeg.sh
 
 #Install packages
-sudo apt install -y xinit openbox unclutter kitty file jq mediainfo golang imagemagick uuid-runtime ffmpegthumbnailer mpv nfs-common
-git clone https://github.com/AntiMicroX/antimicrox
-sudo apt install -y cmake extra-cmake-modules qttools5-dev qttools5-dev-tools libsdl2-dev libxi-dev libxtst-dev libx11-dev itstool gettext
-cd antimicrox
-mkdir build && cd build
-cmake .. -DCPACK_GENERATOR="DEB"
-cmake --build . --target package
-sudo dpkg -i antimicrox*.deb
-cd ../../
+sudo apt install -y xinit xserver-xorg-video-dummy xserver-xorg-input-joystick openbox unclutter kitty file jq mediainfo golang imagemagick uuid-runtime ffmpegthumbnailer mpv nfs-common
+#git clone https://github.com/AntiMicroX/antimicrox
+#sudo apt install -y cmake extra-cmake-modules qttools5-dev qttools5-dev-tools libsdl2-dev libxi-dev libxtst-dev libx11-dev itstool gettext
+#cd antimicrox
+#mkdir build && cd build
+#cmake .. -DCPACK_GENERATOR="DEB"
+#cmake --build . --target package
+#sudo dpkg -i antimicrox*.deb
+#cd ../../
 env CGO_ENABLED=0 GO111MODULE=on go get -u -ldflags="-s -w" github.com/gokcehan/lf
 sudo cp -f /home/$USER/go/bin/lf /usr/bin/
 #env CGO_ENABLED=1 GO111MODULE=on go get -u github.com/doronbehar/pistol/cmd/pistol
@@ -78,5 +78,5 @@ sudo cp -r ./Transparent_Cursor_Theme/Transparent /usr/share/icons/
 #Auto-mount nfs share
 sudo mkdir -p /media
 cat /etc/fstab > ./fstab
-echo '10.0.0.47:/mnt/MergerFS /media nfs rw' >> ./fstab
+echo '10.0.0.47:/mnt/MergerFS /media nfs rw,nofail' >> ./fstab
 sudo cp -f ./fstab /etc/
