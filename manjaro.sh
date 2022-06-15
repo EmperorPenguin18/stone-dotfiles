@@ -39,7 +39,7 @@ su $USER -c "git clone https://github.com/EmperorPenguin18/stone-dotfiles $DIR"
 cd $DIR
 
 #Install packages
-pacman -S polkit sway ttf-inconsalata kitty alsa-utils file jq mediainfo imagemagick ffmpegthumbnailer mpv nfs-utils --noconfirm --needed
+pacman -S polkit xorg-xwayland sway ttf-inconsalata kitty alsa-utils file jq mediainfo imagemagick ffmpegthumbnailer mpv nfs-utils --noconfirm --needed
 #su $USER -c "git clone https://aur.archlinux.org/xf86-input-joystick.git"
 #cd xf86-input-joystick
 #sed -i 's/arch=.*/arch=\(i686 x86_64 aarch64\)/g' PKGBUILD
@@ -82,8 +82,8 @@ dotfile "$DIR/draw_img.sh" "/home/$USER/.config/lf/"
 dotfile "$DIR/jellyfin.sh" "/home/$USER/"
 dotfile "$DIR/config" "/home/$USER/.config/sway/"
 dotfile "$DIR/mpv.gamecontroller.amgp" "/home/$USER/"
-#sudo cp -f ./uinput.service /etc/systemd/system/
-#sudo systemctl enable uinput
+dotfile "$DIR/uinput.service" "/etc/systemd/system/"
+systemctl enable uinput
 dotfile "$DIR/lf_kitty_preview" "/home/$USER/.config/lf/"
 dotfile "$DIR/lf_kitty_clean" "/home/$USER/.config/lf/"
 dotfile "$DIR/vidthumb" "/usr/bin/"
