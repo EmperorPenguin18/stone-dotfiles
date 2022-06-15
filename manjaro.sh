@@ -17,6 +17,8 @@ install_aur ()
     su $USER -c "git clone https://aur.archlinux.org/$1.git /tmp/$1" && \
     OLD="$(pwd)" && \
     cd /tmp/$1 && \
+    DEPS=$(grep "depends" PKGBUILD | grep -o "'.*'" | sed "s/'//g" | paste -sd " " -) && \
+    pacman -S $DEPS --asdeps --noconfirm --needed && \
     su $USER -c "makepkg --noconfirm" && \
     pacman -U *.pkg* --noconfirm --needed && \
     cd $OLD || \
@@ -37,7 +39,7 @@ su $USER -c "git clone https://github.com/EmperorPenguin18/stone-dotfiles $DIR"
 cd $DIR
 
 #Install packages
-pacman -S polkit sway kitty alsa-utils file jq mediainfo imagemagick ffmpegthumbnailer mpv nfs-utils --noconfirm --needed
+pacman -S polkit sway ttf-inconsalata kitty alsa-utils file jq mediainfo imagemagick ffmpegthumbnailer mpv nfs-utils --noconfirm --needed
 #su $USER -c "git clone https://aur.archlinux.org/xf86-input-joystick.git"
 #cd xf86-input-joystick
 #sed -i 's/arch=.*/arch=\(i686 x86_64 aarch64\)/g' PKGBUILD
@@ -47,7 +49,6 @@ pacman -S polkit sway kitty alsa-utils file jq mediainfo imagemagick ffmpegthumb
 #pacman -U *.pkg* --noconfirm --needed
 #cd ../
 #rm -r xf86-input-joystick
-pacman -S go --asdeps --noconfirm --needed
 install_aur lf antimicrox
 
 #Auto-login as user
@@ -92,7 +93,7 @@ dotfile "$DIR/Transparent_Cursor_Theme/Transparent/cursors/*" "/usr/share/icons/
 
 #Auto-mount nfs share
 mkdir -p /media
-echo '10.0.0.47:/mnt/MergerFS /media nfs rw,x-systemd.automount' >> /etc/fstab
+echo '10.0.0.47:/mnt/MergerFS /media nfs rw,nofail' >> /etc/fstab
 
 #Clean up
 chown -R $USER:$USER /home/$USER
