@@ -37,7 +37,7 @@ su $USER -c "git clone https://github.com/EmperorPenguin18/stone-dotfiles $DIR"
 cd $DIR
 
 #Install packages
-pacman -S sway kitty alsa-utils file jq mediainfo imagemagick ffmpegthumbnailer mpv nfs-utils go --noconfirm --needed
+pacman -S polkit sway kitty alsa-utils file jq mediainfo imagemagick ffmpegthumbnailer mpv nfs-utils --noconfirm --needed
 #su $USER -c "git clone https://aur.archlinux.org/xf86-input-joystick.git"
 #cd xf86-input-joystick
 #sed -i 's/arch=.*/arch=\(i686 x86_64 aarch64\)/g' PKGBUILD
@@ -47,6 +47,7 @@ pacman -S sway kitty alsa-utils file jq mediainfo imagemagick ffmpegthumbnailer 
 #pacman -U *.pkg* --noconfirm --needed
 #cd ../
 #rm -r xf86-input-joystick
+pacman -S go --asdeps --noconfirm --needed
 install_aur lf antimicrox
 
 #Auto-login as user
@@ -78,7 +79,7 @@ dotfile "$DIR/lfrc" "/home/$USER/.config/lf/"
 dotfile "$DIR/pv.sh" "/home/$USER/.config/lf/"
 dotfile "$DIR/draw_img.sh" "/home/$USER/.config/lf/"
 dotfile "$DIR/jellyfin.sh" "/home/$USER/"
-dotfile "$DIR/sway.txt" "/home/$USER/.config/sway/config"
+dotfile "$DIR/config" "/home/$USER/.config/sway/"
 dotfile "$DIR/mpv.gamecontroller.amgp" "/home/$USER/"
 #sudo cp -f ./uinput.service /etc/systemd/system/
 #sudo systemctl enable uinput
