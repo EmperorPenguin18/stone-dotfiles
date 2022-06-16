@@ -39,7 +39,7 @@ su $USER -c "git clone https://github.com/EmperorPenguin18/stone-dotfiles $DIR"
 cd $DIR
 
 #Install packages
-pacman -S polkit xorg-xwayland sway ttf-inconsalata kitty alsa-utils file jq mediainfo imagemagick ffmpegthumbnailer mpv nfs-utils --noconfirm --needed
+pacman -S polkit xorg-xwayland sway ttf-inconsalata kitty alsa-utils file jq mediainfo imagemagick ffmpegthumbnailer pandoc poppler mpv nfs-utils --noconfirm --needed
 #su $USER -c "git clone https://aur.archlinux.org/xf86-input-joystick.git"
 #cd xf86-input-joystick
 #sed -i 's/arch=.*/arch=\(i686 x86_64 aarch64\)/g' PKGBUILD
