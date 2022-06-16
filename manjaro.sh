@@ -39,7 +39,7 @@ su $USER -c "git clone https://github.com/EmperorPenguin18/stone-dotfiles $DIR"
 cd $DIR
 
 #Install packages
-pacman -S polkit xorg-xwayland sway ttf-inconsalata kitty alsa-utils file jq mediainfo imagemagick ffmpegthumbnailer pandoc poppler mpv nfs-utils --noconfirm --needed
+pacman -S polkit xorg-xwayland sway ttf-inconsolata kitty alsa-utils file jq mediainfo imagemagick ffmpegthumbnailer poppler mpv nfs-utils --noconfirm --needed
 #su $USER -c "git clone https://aur.archlinux.org/xf86-input-joystick.git"
 #cd xf86-input-joystick
 #sed -i 's/arch=.*/arch=\(i686 x86_64 aarch64\)/g' PKGBUILD
@@ -49,7 +49,7 @@ pacman -S polkit xorg-xwayland sway ttf-inconsalata kitty alsa-utils file jq med
 #pacman -U *.pkg* --noconfirm --needed
 #cd ../
 #rm -r xf86-input-joystick
-install_aur lf antimicrox
+install_aur pandoc-bin lf antimicrox
 
 #Auto-login as user
 dotfile "override.conf" "/etc/systemd/system/getty@tty1.service.d/"
