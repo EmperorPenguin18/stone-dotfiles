@@ -17,7 +17,7 @@ install_aur ()
     su $USER -c "git clone https://aur.archlinux.org/$1.git /tmp/$1" && \
     OLD="$(pwd)" && \
     cd /tmp/$1 && \
-    DEPS=$(grep "depends" PKGBUILD | grep -o "'.*'" | sed "s/'//g" | paste -sd " " -) && \
+    DEPS=$(grep "depends=" PKGBUILD | grep -o "'.*'" | sed "s/:.*'/'/g;s/'//g" | paste -sd " " -) && \
     pacman -S $DEPS --asdeps --noconfirm --needed && \
     su $USER -c "makepkg --noconfirm" && \
     pacman -U *.pkg* --noconfirm --needed && \
@@ -40,19 +40,10 @@ cd $DIR
 
 #Install packages
 pacman -S polkit xorg-xwayland sway ttf-inconsolata kitty alsa-utils file jq mediainfo imagemagick ffmpegthumbnailer poppler mpv nfs-utils --noconfirm --needed
-#su $USER -c "git clone https://aur.archlinux.org/xf86-input-joystick.git"
-#cd xf86-input-joystick
-#sed -i 's/arch=.*/arch=\(i686 x86_64 aarch64\)/g' PKGBUILD
-#sed -i "s/makedepends=.*/makedepends=\('xorg-server-devel' 'xorgproto'\)/g" PKGBUILD
-#sed -i '/conflicts/d' PKGBUILD
-#su $USER -c "makepkg --noconfirm --skippgpcheck"
-#pacman -U *.pkg* --noconfirm --needed
-#cd ../
-#rm -r xf86-input-joystick
 install_aur pandoc-bin lf antimicrox
 
 #Auto-login as user
-dotfile "override.conf" "/etc/systemd/system/getty@tty1.service.d/"
+dotfile "$DIR/override.conf" "/etc/systemd/system/getty@tty1.service.d/"
 sed -i "s/USER/$USER/g" /etc/systemd/system/getty@tty1.service.d/override.conf
 
 #Auto-start X
