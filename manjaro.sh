@@ -17,7 +17,7 @@ install_aur ()
     su $USER -c "git clone https://aur.archlinux.org/$1.git /tmp/$1" && \
     OLD="$(pwd)" && \
     cd /tmp/$1 && \
-    DEPS=$(grep "depends=" PKGBUILD | grep -o "'.*'" | sed "s/:.*'/'/g;s/'//g" | paste -sd " " -) && \
+    DEPS=$(grep "depends=" PKGBUILD | sed "s/\"/'/g" | grep -o "'.*'" | sed "s/:.*'/'/g;s/'//g" | paste -sd " " -) && \
     pacman -S $DEPS --asdeps --noconfirm --needed && \
     su $USER -c "makepkg --noconfirm" && \
     pacman -U *.pkg* --noconfirm --needed && \
