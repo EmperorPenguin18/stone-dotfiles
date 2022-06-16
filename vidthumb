@@ -23,7 +23,18 @@ fi
 
 thumbnail="$(uuidgen).jpg"
 
-if ! ffmpegthumbnailer -i "$movie" -o "$cache/$thumbnail" -s 0 2>/dev/null; then
+generate ()
+{
+	ffmpegthumbnailer -i "$movie" -o "/tmp/image-$thumbnail" -s 0 && \
+	printf "![whoops](file:///tmp/image-$thumbnail)\n$($HOME/jellyfin.sh $movie)\n" > "/tmp/$thumbnail.md" && \
+	pandoc -f markdown -o "/tmp/$thumbnail.pdf" "/tmp/$thumbnail.md" && \
+	pdftoppm "/tmp/$thumbnail.pdf" "/tmp/output" -jpeg && \
+	convert "/tmp/output-1.jpg" -crop 750x540+265+255 "$cache/$thumbnail" || \
+	return 1
+	return 0
+}
+
+if ! generate; then
 	exit 1
 fi
 
