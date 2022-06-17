@@ -25,6 +25,6 @@ else
 	SEASONID=$(curl -sX "GET" "http://$URL/Shows/$TITLEID/Seasons?api_key=$KEY" | jq ".Items[] | select(.Name==\"$SEASON\") | .Id" | cut -d '"' -f 2)
 	EPISODE=$((10#$(echo $FILE | awk '{split($1, arr, "[E.]"); print arr[2]}')))
 	METADATA=$(curl -sX "GET" "http://$URL/Shows/$TITLEID/Episodes?api_key=$KEY&seasonId=$SEASONID" | jq ".Items[] | select(.IndexNumber==$EPISODE)")
-	echo "Title: $(echo $METADATA | jq '.Name' | cut -d '"' -f 2)"
-	echo "Duration: $(expr $(echo $METADATA | jq '.RunTimeTicks') / 600000000) mins"
+	printf "Title: $(echo $METADATA | jq '.Name' | cut -d '"' -f 2)"
+	printf "Duration: $(expr $(echo $METADATA | jq '.RunTimeTicks') / 600000000) mins" >/dev/stderr
 fi
