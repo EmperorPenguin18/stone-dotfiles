@@ -1,7 +1,8 @@
 #!/bin/sh
 
 #Setup
-USER=${1:-pi}
+USER="$(ls /home | head -1)"
+sudo apt install -y git
 git clone https://github.com/EmperorPenguin18/stone-dotfiles
 cd stone-dotfiles
 
@@ -10,12 +11,25 @@ cd stone-dotfiles
 #chmod +x compile-ffmpeg.sh && ./compile-ffmpeg.sh
 
 #Install packages
-sudo apt install -y xserver-xorg xinit libgles2-mesa xorg-dev spectrwm rxvt-unicode xsel ranger w3m-img ffmpegthumbnailer vlc nfs-common unclutter xserver-xorg-input-joystick xserver-xorg-input-all xinput
+sudo apt install -y xinit xserver-xorg-video-dummy xserver-xorg-input-joystick openbox unclutter kitty file jq mediainfo golang imagemagick uuid-runtime ffmpegthumbnailer mpv nfs-common
+#git clone https://github.com/AntiMicroX/antimicrox
+#sudo apt install -y cmake extra-cmake-modules qttools5-dev qttools5-dev-tools libsdl2-dev libxi-dev libxtst-dev libx11-dev itstool gettext
+#cd antimicrox
+#mkdir build && cd build
+#cmake .. -DCPACK_GENERATOR="DEB"
+#cmake --build . --target package
+#sudo dpkg -i antimicrox*.deb
+#cd ../../
+env CGO_ENABLED=0 GO111MODULE=on go get -u -ldflags="-s -w" github.com/gokcehan/lf
+sudo cp -f /home/$USER/go/bin/lf /usr/bin/
+#env CGO_ENABLED=1 GO111MODULE=on go get -u github.com/doronbehar/pistol/cmd/pistol
+#sudo cp -f /home/$USER/go/bin/pistol /usr/bin/
 
 #Auto-start X
-echo 'if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
-echo '  exec startx' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
-echo 'fi' >> /home/$USER/"$(ls -a /home/$USER | grep profile)"
+PROFILE="$(ls -a /home/$USER | grep profile)"
+echo 'if [ -z "${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then' >> /home/$USER/$PROFILE
+echo '  exec startx' >> /home/$USER/$PROFILE
+echo 'fi' >> /home/$USER/$PROFILE
 
 #Config files
 cp -f ./.xinitrc /home/$USER/
@@ -24,7 +38,7 @@ mkdir -p /home/$USER/.config/mpv
 cp -f ./mpv.conf /home/$USER/.config/mpv/
 cp -f ./input.conf /home/$USER/.config/mpv/
 sudo mkdir -p /etc/X11/xorg.conf.d
-sudo cp -f ./51-joystick-vlc.conf /etc/X11/xorg.conf.d/
+sudo cp -f ./51-joystick-mpv.conf /etc/X11/xorg.conf.d/
 sudo cp -f ./config.txt /boot
 git clone https://github.com/muennich/urxvt-perls
 mkdir -p /home/$USER/.urxvt/ext
@@ -39,9 +53,32 @@ chmod +x /home/$USER/.config/ranger/scope.sh
 cp -f ./plugin_file_filter.py /home/$USER/.config/ranger/plugins/
 mkdir -p /home/$USER/.config/vlc
 cp -f ./vlcrc /home/$USER/.config/vlc/vlcrc
+mkdir -p /home/$USER/.config/lf
+cp -f ./lfrc /home/$USER/.config/lf/
+cp -f ./pv.sh /home/$USER/.config/lf/
+chmod +x /home/$USER/.config/lf/pv.sh
+cp -f ./draw_img.sh /home/$USER/.config/lf/
+chmod +x /home/$USER/.config/lf/draw_img.sh
+cp -f ./jellyfin.sh /home/$USER/jellyfin.sh
+chmod +x /home/$USER/jellyfin.sh
+mkdir -p /home/$USER/.config/sway
+cp -f ./sway.txt /home/$USER/.config/sway/config
+cp -f ./mpv.gamecontroller.amgp /home/$USER/
+sudo cp -f ./uinput.service /etc/systemd/system/
+sudo systemctl enable uinput
+cp -f ./lf_kitty_preview /home/$USER/.config/lf/
+cp -f ./lf_kitty_clean /home/$USER/.config/lf/
+chmod +x /home/$USER/.config/lf/lf_kitty_clean
+chmod +x /home/$USER/.config/lf/lf_kitty_preview
+sudo cp -f ./vidthumb /usr/bin/
+sudo chmod +x /usr/bin/vidthumb
+git clone https://github.com/johnodon/Transparent_Cursor_Theme
+sudo cp -r ./Transparent_Cursor_Theme/Transparent /usr/share/icons/
+mkdir -p /home/$USER/.config/openbox
+cp -f ./rc.xml /home/$USER/.config/openbox/
 
 #Auto-mount nfs share
 sudo mkdir -p /media
 cat /etc/fstab > ./fstab
-echo '10.0.0.47:/mnt/MergerFS /media nfs rw' >> ./fstab
+echo '10.0.0.47:/mnt/MergerFS /media nfs rw,nofail' >> ./fstab
 sudo cp -f ./fstab /etc/

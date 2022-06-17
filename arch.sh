@@ -53,14 +53,14 @@ timedatectl set-timezone $TIME
 #pacman -U *.pkg* --noconfirm --needed
 
 #Install packages
-pacman -S xorg xorg-xinit spectrwm rxvt-unicode xsel alsa-utils ranger w3m ffmpegthumbnailer mpv nfs-utils unclutter pyalpm python-commonmark --noconfirm --needed
+pacman -S xorg xorg-xinit spectrwm rxvt-unicode xsel alsa-utils w3m ffmpegthumbnailer mpv nfs-utils unclutter pyalpm python-commonmark go --noconfirm --needed
 su $USER -c "git clone https://aur.archlinux.org/pikaur.git"
 cd pikaur
 su $USER -c "makepkg --noconfirm"
 pacman -U *.pkg* --noconfirm --needed
 cd ../
 rm -r pikaur
-install_aur xf86-input-joystick all-repository-fonts
+install_aur xf86-input-joystick all-repository-fonts lf
 
 #Auto-login as user
 dotfile "override.conf" "/etc/systemd/system/getty@tty1.service.d/"
@@ -87,6 +87,10 @@ dotfile "rc.conf" "/home/$USER/.config/ranger/"
 dotfile "scope.sh" "/home/$USER/.config/ranger/"
 dotfile "plugin_file_filter.py" "/home/$USER/.config/ranger/plugins/"
 dotfile "vlcrc" "/home/$USER/.config/vlc/"
+dotfile "lfrc" "/home/$USER/.config/lf/"
+dotfile "pv.sh" "/home/$USER/.config/lf/"
+dotfile "draw_img.sh" "/home/$USER/.config/lf/"
+dotfile "jellyfin.sh" "/home/$USER/"
 
 #Auto-mount nfs share
 mkdir -p /media

@@ -1,43 +1,25 @@
 # stone-dotfiles
-Configuration for Pi
-
-Turns your Raspberry Pi into a streaming box. Watch videos over a network share all controllable from the couch.
+Turns your Raspberry Pi into a minimal streaming box. Watch videos over a network share all controllable from the couch.
 
 ### How to use:
-1. Install Raspberry Pi OS Lite (32-bit) to a storage device of at least 8GB. Plug that in to a Raspberry Pi of choice (Pi 4 with cooling recommended).
-2. Boot up and log in (user: pi pass: raspberry).
-3. Run the following commands:
+1. Install [Manjaro ARM Minimal (RPi 4)](https://manjaro.org/download/) to a micro SD card of at least 8GB. Plug that in to a Raspberry Pi 4 with cooling. Plug in a display, keyboard and optionally ethernet. If using Wi-Fi, SSID and password can be entered during setup.
+2. Boot up and complete the setup.
+3. Log in as root. Run the following commands:
 ```
-sudo apt update
-sudo apt dist-upgrade
-sudo reboot
-sudo raspi-config
-```
-Settings to change:  
-System -> Audio -> HDMI  
-System -> Password  
-System -> Hostname  
-System -> Boot -> Console Autologin  
-System -> Network at boot -> Yes  
-Interface -> SSH -> Yes  
-Localisation -> Locale  
-Localisation -> Timezone  
-Localisation -> Keyboard  
-Localisation -> WLAN Country
-```
-sudo apt install git
-curl -sL https://raw.github.com/EmperorPenguin18/stone-dotfiles/main/debian.sh | sh
+pacman -Syu --noconfirm
+reboot
+curl -sL https://raw.github.com/EmperorPenguin18/stone-dotfiles/main/manjaro.sh | sh
 ```
 This will take a while. There's lots of software to install.
 
 4. Change the line in /etc/fstab to mount your network share
-5. Reboot. You should automatically enter into ranger (file manager).
-6. You can navigate ranger and control vlc (video player) with a gamepad.
+5. Input your credentials into jellyfin.sh
+6. Reboot. You should automatically enter into lf (file viewer).
+7. You can navigate lf and control mpv (video player) with a gamepad.
 ![alt text](https://raw.githubusercontent.com/EmperorPenguin18/stone-dotfiles/main/diagram.png)
 
 ### Future:
-- Connect to Jellyfin
 - Nicer interface
-- Add Steam Link functionality
+- Improve font selection (Japanese characters)
 
 Yes this is a JoJo reference.

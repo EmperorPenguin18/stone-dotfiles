@@ -1,10 +1,19 @@
+camera_auto_detect=1
+display_auto_detect=1
+dtoverlay=vc4-kms-v3d
+max_framebuffers=2
 disable_overscan=1
 dtparam=audio=on
 
-[pi4]
-dtoverlay=vc4-fkms-v3d
-max_framebuffers=2
+[cm4]
+otg_mode=1
 
 [all]
-gpu_mem=320
-over_voltage=1
+
+[pi4]
+arm_boost=1
+
+[all]
+over_voltage=6
+arm_freq=1800
+gpu_freq=750
