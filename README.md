@@ -8,7 +8,7 @@ Turns your Raspberry Pi into a minimal streaming box. Watch videos over a networ
 ```
 pacman -Syu --noconfirm
 reboot
-curl -sL https://raw.github.com/EmperorPenguin18/stone-dotfiles/main/manjaro.sh | sh
+curl -sL https://raw.github.com/EmperorPenguin18/stone-dotfiles/main/setup.sh | sh
 ```
 This will take a while. There's lots of software to install.
 
