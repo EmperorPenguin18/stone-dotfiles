@@ -12,18 +12,18 @@ dotfile ()
 
 install_aur ()
 {
+  OLD="$(pwd)"
   for I in $@
   do
     su $USER -c "git clone https://aur.archlinux.org/$I.git /tmp/$I" && \
-    OLD="$(pwd)" && \
     cd /tmp/$I && \
     DEPS=$(grep "depends=" PKGBUILD | sed "s/\"/'/g" | grep -o "'.*'" | sed "s/:.*'/'/g;s/'//g" | paste -sd " " -) && \
     pacman -S $DEPS --asdeps --noconfirm --needed && \
     su $USER -c "makepkg --noconfirm" && \
-    pacman -U *.pkg* --noconfirm --needed && \
-    cd $OLD || \
+    pacman -U *.pkg* --noconfirm --needed || \
     return 1
   done
+  cd $OLD
   return 0
 }
 
@@ -53,23 +53,9 @@ echo '  exec sway' >> /home/$USER/$PROFILE
 echo 'fi' >> /home/$USER/$PROFILE
 
 #Config files
-dotfile "$DIR/.xinitrc" "/home/$USER/"
-dotfile "$DIR/.spectrwm.conf" "/home/$USER/"
 dotfile "$DIR/mpv.conf" "/home/$USER/.config/mpv/"
 dotfile "$DIR/input.conf" "/home/$USER/.config/mpv/"
-dotfile "$DIR/51-joystick-mpv.conf" "/etc/X11/xorg.conf.d/"
-su $USER -c "git clone https://github.com/muennich/urxvt-perls $DIR/urxvt-perls"
-dotfile "$DIR/urxvt-perls/keyboard-select" "/home/$USER/.urxvt/ext/"
-dotfile "$DIR/urxvt-perls/deprecated/clipboard" "/home/$USER/.urxvt/ext/"
-dotfile "$DIR/urxvt-perls/deprecated/url-select" "/home/$USER/.urxvt/ext/"
-dotfile "$DIR/.Xresources" "/home/$USER/"
-dotfile "$DIR/rc.conf" "/home/$USER/.config/ranger/"
-dotfile "$DIR/scope.sh" "/home/$USER/.config/ranger/"
-dotfile "$DIR/plugin_file_filter.py" "/home/$USER/.config/ranger/plugins/"
-dotfile "$DIR/vlcrc" "/home/$USER/.config/vlc/"
 dotfile "$DIR/lfrc" "/home/$USER/.config/lf/"
-dotfile "$DIR/pv.sh" "/home/$USER/.config/lf/"
-dotfile "$DIR/draw_img.sh" "/home/$USER/.config/lf/"
 dotfile "$DIR/jellyfin.sh" "/home/$USER/"
 dotfile "$DIR/config" "/home/$USER/.config/sway/"
 dotfile "$DIR/mpv.gamecontroller.amgp" "/home/$USER/"
