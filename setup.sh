@@ -39,7 +39,7 @@ su $USER -c "git clone https://github.com/EmperorPenguin18/stone-dotfiles $DIR"
 cd $DIR
 
 #Install packages
-pacman -S polkit xorg-xwayland sway ttf-inconsolata alsa-utils mpv nfs-utils --noconfirm --needed
+pacman -S polkit xorg-xwayland sway ttf-inconsolata alsa-utils --noconfirm --needed
 install_aur antimicrox
 
 #Build mpv
@@ -47,6 +47,7 @@ curl -sL http://mirror.archlinuxarm.org/aarch64/alarm/$(curl -sL http://mirror.a
 pacman -U ffmpeg-rpi.pkg.tar.xz
 git clone https://github.com/mpv-player/mpv && cd mpv
 PKG_CONFIG_PATH=/usr/lib/ffmpeg-rpi/pkgconfig/ meson build && ninja -C build
+#cp build/mpv /usr/bin/mpv
 cd ../
 
 #Auto-login as user
