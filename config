@@ -4,7 +4,7 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term LIBGL_ALWAYS_SOFTWARE=true kitty
+set $term xterm
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 include /etc/sway/config-vars.d/*
@@ -65,7 +65,7 @@ bindsym $mod+r mode "resize"
 default_border none
 seat * xcursor_theme Transparent
 exec amixer sset PCM 100%
-exec $term -e lf /media && swaymsg exit
+exec mpv && swaymsg exit
 exec antimicrox --hidden --eventgen uinput --profile mpv.gamecontroller.amgp
 
 include /etc/sway/config.d/*

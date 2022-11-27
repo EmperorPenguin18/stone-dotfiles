@@ -39,8 +39,15 @@ su $USER -c "git clone https://github.com/EmperorPenguin18/stone-dotfiles $DIR"
 cd $DIR
 
 #Install packages
-pacman -S polkit xorg-xwayland sway ttf-inconsolata kitty alsa-utils file jq mediainfo imagemagick ffmpegthumbnailer poppler mpv nfs-utils --noconfirm --needed
-install_aur pandoc-bin lf antimicrox
+pacman -S polkit xorg-xwayland sway ttf-inconsolata alsa-utils mpv nfs-utils --noconfirm --needed
+install_aur antimicrox
+
+#Build mpv
+curl -sL http://mirror.archlinuxarm.org/aarch64/alarm/$(curl -sL http://mirror.archlinuxarm.org/aarch64/alarm/ | grep -m 1 "ffmpeg-rpi" | cut -f 2 -d '>' | cut -f 1 -d '<') > ffmpeg-rpi.pkg.tar.xz
+pacman -U ffmpeg-rpi.pkg.tar.xz
+git clone https://github.com/mpv-player/mpv && cd mpv
+PKG_CONFIG_PATH=/usr/lib/ffmpeg-rpi/pkgconfig/ meson build && ninja -C build
+cd ../
 
 #Auto-login as user
 dotfile "$DIR/override.conf" "/etc/systemd/system/getty@tty1.service.d/"
@@ -55,22 +62,14 @@ echo 'fi' >> /home/$USER/$PROFILE
 #Config files
 dotfile "$DIR/mpv.conf" "/home/$USER/.config/mpv/"
 dotfile "$DIR/input.conf" "/home/$USER/.config/mpv/"
-dotfile "$DIR/lfrc" "/home/$USER/.config/lf/"
-dotfile "$DIR/jellyfin.sh" "/home/$USER/"
 dotfile "$DIR/config" "/home/$USER/.config/sway/"
 dotfile "$DIR/mpv.gamecontroller.amgp" "/home/$USER/"
 dotfile "$DIR/uinput.service" "/etc/systemd/system/"
 systemctl enable uinput
-dotfile "$DIR/lf_kitty_preview" "/home/$USER/.config/lf/"
-dotfile "$DIR/lf_kitty_clean" "/home/$USER/.config/lf/"
-dotfile "$DIR/vidthumb" "/usr/bin/"
 su $USER -c "git clone https://github.com/johnodon/Transparent_Cursor_Theme $DIR/Transparent_Cursor_Theme"
 dotfile "$DIR/Transparent_Cursor_Theme/Transparent/cursor.theme" "/usr/share/icons/Transparent/"
 dotfile "$DIR/Transparent_Cursor_Theme/Transparent/cursors/*" "/usr/share/icons/Transparent/cursors/"
-
-#Auto-mount nfs share
-mkdir -p /media
-echo '10.0.0.47:/mnt/MergerFS /media nfs rw,nofail' >> /etc/fstab
+su $USER -c "git clone https://github.com/EmperorPenguin18/mpv-jellyfin /home/pi/.config/mpv"
 
 #Clean up
 chown -R $USER:$USER /home/$USER
