@@ -64,7 +64,6 @@ bindsym $mod+r mode "resize"
 
 default_border none
 seat * xcursor_theme Transparent
-exec amixer sset PCM 100%
 exec mpv && swaymsg exit
 exec antimicrox --hidden --eventgen uinput --profile mpv.gamecontroller.amgp
 
