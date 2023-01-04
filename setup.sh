@@ -42,13 +42,32 @@ cd $DIR
 pacman -S xorg-xwayland sway --noconfirm --needed
 install_aur antimicrox
 
-#Build mpv
+build_mesa ()
+{
+  pacman -S mesa --asdeps --noconfirm --needed
+  su $USER -c "git clone https://gitlab.freedesktop.org/mesa/mesa.git" && cd mesa
+  meson setup build -D b_ndebug=true -D b_lto=false -D platforms=x11,wayland -D gallium-drivers=swrast,v3d,vc4 -D dri3=enabled -D egl=enabled -D gbm=enabled -D gles1=disabled -D gles2=enabled -D glvnd=true -D glx=dri -D libunwind=enabled -D llvm=enabled -D lmsensors=enabled -D osmesa=true -D shared-glapi=enabled -D microsoft-clc=disabled -D valgrind=disabled -D tools=[] -D zstd=enabled -D video-codecs=vc1dec,h264dec,h264enc,h265dec,h265enc -D buildtype=plain --wrap-mode=nofallback -D prefix=/usr -D sysconfdir=/etc || exit 1
+  meson configure --no-pager
+  ninja $NINJAFLAGS -C build && \
+  ninja $NINJAFLAGS -C build install && \
+  rm -f /usr/bin/mesa-overlay-control.py && \
+  ln -sf /usr/lib/libGLX_mesa.so.0 /usr/lib/libGLX_indirect.so.0 || \
+  exit 1
+  cd ../
+}
+build_mesa
+
 curl -sL http://mirror.archlinuxarm.org/aarch64/alarm/$(curl -sL http://mirror.archlinuxarm.org/aarch64/alarm/ | grep -m 1 "ffmpeg-rpi" | cut -f 2 -d '>' | cut -f 1 -d '<') > ffmpeg-rpi.pkg.tar.xz
 pacman -U ffmpeg-rpi.pkg.tar.xz
-pacman -S wireplumber pipewire-jack hicolor-icon-theme luajit wayland-protocols yt-dlp --asdeps --noconfirm --needed
-su $USER -c "git clone https://github.com/mpv-player/mpv" && cd mpv
-PKG_CONFIG_PATH=/usr/lib/ffmpeg-rpi/pkgconfig/ meson build && ninja -C build
-dotfile "./build/mpv" "/usr/bin/" && cd ../
+
+build_mpv ()
+{
+  pacman -S wireplumber pipewire-jack hicolor-icon-theme luajit wayland-protocols yt-dlp --asdeps --noconfirm --needed
+  su $USER -c "git clone https://github.com/mpv-player/mpv" && cd mpv
+  PKG_CONFIG_PATH=/usr/lib/ffmpeg-rpi/pkgconfig/ meson build && ninja -C build
+  dotfile "./build/mpv" "/usr/bin/" && cd ../
+}
+build_mpv
 
 #Auto-login as user
 dotfile "$DIR/override.conf" "/etc/systemd/system/getty@tty1.service.d/"
