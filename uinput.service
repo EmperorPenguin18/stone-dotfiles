@@ -1,8 +1,0 @@
-[Unit]
-Description=Fix uinput permissions
-
-[Service]
-ExecStart=chmod +0666 /dev/uinput
-
-[Install]
-WantedBy=default.target

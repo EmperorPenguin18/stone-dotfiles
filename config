@@ -65,6 +65,5 @@ bindsym $mod+r mode "resize"
 default_border none
 seat * xcursor_theme Transparent
 exec mpv && swaymsg exit
-exec antimicrox --hidden --eventgen uinput --profile mpv.gamecontroller.amgp
 
 include /etc/sway/config.d/*

@@ -10,22 +10,22 @@ dotfile ()
   return 0
 }
 
-install_aur ()
-{
-  OLD="$(pwd)"
-  for I in $@
-  do
-    su $USER -c "git clone https://aur.archlinux.org/$I.git /tmp/$I" && \
-    cd /tmp/$I && \
-    DEPS=$(grep "depends=" PKGBUILD | sed "s/\"/'/g" | grep -o "'.*'" | sed "s/:.*'/'/g;s/'//g" | paste -sd " " -) && \
-    pacman -S $DEPS --asdeps --noconfirm --needed && \
-    su $USER -c "makepkg --noconfirm" && \
-    pacman -U *.pkg* --noconfirm --needed || \
-    return 1
-  done
-  cd $OLD
-  return 0
-}
+#install_aur ()
+#{
+#  OLD="$(pwd)"
+#  for I in $@
+#  do
+#    su $USER -c "git clone https://aur.archlinux.org/$I.git /tmp/$I" && \
+#    cd /tmp/$I && \
+#    DEPS=$(grep "depends=" PKGBUILD | sed "s/\"/'/g" | grep -o "'.*'" | sed "s/:.*'/'/g;s/'//g" | paste -sd " " -) && \
+#    pacman -S $DEPS --asdeps --noconfirm --needed && \
+#    su $USER -c "makepkg --noconfirm" && \
+#    pacman -U *.pkg* --noconfirm --needed || \
+#    return 1
+#  done
+#  cd $OLD
+#  return 0
+#}
 
 #Setup
 if [ "$(id -u)" -ne 0 ]; then
@@ -39,8 +39,7 @@ su $USER -c "git clone https://github.com/EmperorPenguin18/stone-dotfiles $DIR"
 cd $DIR
 
 #Install packages
-pacman -S xorg-xwayland sway --noconfirm --needed
-install_aur antimicrox
+pacman -S sway --noconfirm --needed
 
 build_mesa ()
 {
@@ -69,10 +68,10 @@ build_ffmpeg #Needed for the time being
 
 build_mpv ()
 {
-  pacman -S wireplumber pipewire-jack hicolor-icon-theme luajit wayland-protocols yt-dlp --asdeps --noconfirm --needed
+  pacman -S sdl2 wireplumber pipewire-jack hicolor-icon-theme luajit wayland-protocols yt-dlp --asdeps --noconfirm --needed
   su $USER -c "git clone --branch pi_h265 https://github.com/EmperorPenguin18/mpv" && cd mpv
-  meson build && ninja -C build
-  dotfile "./build/mpv" "/usr/bin/" && cd ../
+  meson setup build -Dsdl2=enabled && ninja -C build
+  ninja -C build install && cd ../
 }
 build_mpv #Needed for the time being
 
@@ -92,9 +91,6 @@ echo 'fi' >> /home/$USER/$PROFILE
 dotfile "$DIR/mpv.conf" "/home/$USER/.config/mpv/"
 dotfile "$DIR/input.conf" "/home/$USER/.config/mpv/"
 dotfile "$DIR/config" "/home/$USER/.config/sway/"
-dotfile "$DIR/mpv.gamecontroller.amgp" "/home/$USER/"
-dotfile "$DIR/uinput.service" "/etc/systemd/system/"
-systemctl enable uinput
 su $USER -c "git clone https://github.com/johnodon/Transparent_Cursor_Theme $DIR/Transparent_Cursor_Theme"
 dotfile "$DIR/Transparent_Cursor_Theme/Transparent/cursor.theme" "/usr/share/icons/Transparent/"
 dotfile "$DIR/Transparent_Cursor_Theme/Transparent/cursors/*" "/usr/share/icons/Transparent/cursors/"
