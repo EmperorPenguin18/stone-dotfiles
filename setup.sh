@@ -44,8 +44,8 @@ install_aur antimicrox
 
 build_mesa ()
 {
-  pacman -S mesa --asdeps --noconfirm --needed
-  su $USER -c "git clone https://gitlab.freedesktop.org/mesa/mesa.git" && cd mesa
+  su $USER -c "git clone --branch dev/pi_drm_format https://gitlab.freedesktop.org/EmperorPenguin18/mesa.git"
+  cd mesa
   meson setup build -D b_ndebug=true -D b_lto=false -D platforms=x11,wayland -D gallium-drivers=swrast,v3d,vc4 -D dri3=enabled -D egl=enabled -D gbm=enabled -D gles1=disabled -D gles2=enabled -D glvnd=true -D glx=dri -D libunwind=enabled -D llvm=enabled -D lmsensors=enabled -D osmesa=true -D shared-glapi=enabled -D microsoft-clc=disabled -D valgrind=disabled -D tools=[] -D zstd=enabled -D video-codecs=vc1dec,h264dec,h264enc,h265dec,h265enc -D buildtype=plain --wrap-mode=nofallback -D prefix=/usr -D sysconfdir=/etc || exit 1
   meson configure --no-pager
   ninja $NINJAFLAGS -C build && \
@@ -55,19 +55,26 @@ build_mesa ()
   exit 1
   cd ../
 }
-build_mesa
+build_mesa #Only needed until 23.0 releases
 
-curl -sL http://mirror.archlinuxarm.org/aarch64/alarm/$(curl -sL http://mirror.archlinuxarm.org/aarch64/alarm/ | grep -m 1 "ffmpeg-rpi" | cut -f 2 -d '>' | cut -f 1 -d '<') > ffmpeg-rpi.pkg.tar.xz
-pacman -U ffmpeg-rpi.pkg.tar.xz
+build_ffmpeg ()
+{
+  su $USER -c "git clone --branch dev/5.1.2/rpi_import_1 https://github.com/EmperorPenguin18/rpi-ffmpeg"
+  cd rpi-ffmpeg
+  CFLAGS="-march=native -mtune=native" CXXFLAGS="-march=native -mtune=native" ./configure --prefix=/usr --disable-network --disable-debug --disable-muxers --disable-indevs --disable-outdev=fbdev --disable-outdev=oss --disable-doc --disable-bsfs --disable-ffprobe --disable-sdl2 --disable-stripping --disable-thumb --disable-mmal --enable-sand --enable-v4l2-request --enable-libdrm --enable-epoxy --enable-libudev --enable-vout-drm
+  make install
+  cd ../
+}
+build_ffmpeg #Needed for the time being
 
 build_mpv ()
 {
   pacman -S wireplumber pipewire-jack hicolor-icon-theme luajit wayland-protocols yt-dlp --asdeps --noconfirm --needed
-  su $USER -c "git clone https://github.com/mpv-player/mpv" && cd mpv
-  PKG_CONFIG_PATH=/usr/lib/ffmpeg-rpi/pkgconfig/ meson build && ninja -C build
+  su $USER -c "git clone --branch pi_h265 https://github.com/EmperorPenguin18/mpv" && cd mpv
+  meson build && ninja -C build
   dotfile "./build/mpv" "/usr/bin/" && cd ../
 }
-build_mpv
+build_mpv #Needed for the time being
 
 #Auto-login as user
 dotfile "$DIR/override.conf" "/etc/systemd/system/getty@tty1.service.d/"
