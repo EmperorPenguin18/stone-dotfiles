@@ -34,7 +34,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 USER=$(ls /home)
 DIR="/home/$USER/stone-dotfiles"
-pacman -Sy git base-devel --noconfirm --needed
+pacman -Sy git base-devel meson --noconfirm --needed
 su $USER -c "git clone https://github.com/EmperorPenguin18/stone-dotfiles $DIR"
 cd $DIR
 
@@ -43,6 +43,7 @@ pacman -S sway --noconfirm --needed
 
 build_mesa ()
 {
+  pacman -S python-mako llvm wayland-protocols xorg-xrandr --asdeps --noconfirm --needed
   su $USER -c "git clone --branch dev/pi_drm_format https://gitlab.freedesktop.org/EmperorPenguin18/mesa.git"
   cd mesa
   meson setup build -D b_ndebug=true -D b_lto=false -D platforms=x11,wayland -D gallium-drivers=swrast,v3d,vc4 -D dri3=enabled -D egl=enabled -D gbm=enabled -D gles1=disabled -D gles2=enabled -D glvnd=true -D glx=dri -D libunwind=enabled -D llvm=enabled -D lmsensors=enabled -D osmesa=true -D shared-glapi=enabled -D microsoft-clc=disabled -D valgrind=disabled -D tools=[] -D zstd=enabled -D video-codecs=vc1dec,h264dec,h264enc,h265dec,h265enc -D buildtype=plain --wrap-mode=nofallback -D prefix=/usr -D sysconfdir=/etc || exit 1
@@ -51,29 +52,32 @@ build_mesa ()
   ninja $NINJAFLAGS -C build install && \
   rm -f /usr/bin/mesa-overlay-control.py && \
   ln -sf /usr/lib/libGLX_mesa.so.0 /usr/lib/libGLX_indirect.so.0 || \
-  exit 1
-  cd ../
+  return 1
+  cd ../ && return 0
 }
-build_mesa #Only needed until 23.0 releases
+build_mesa || exit 1 #Only needed until 23.0 releases
 
 build_ffmpeg ()
 {
   su $USER -c "git clone --branch dev/5.1.2/rpi_import_1 https://github.com/EmperorPenguin18/rpi-ffmpeg"
   cd rpi-ffmpeg
-  CFLAGS="-march=native -mtune=native" CXXFLAGS="-march=native -mtune=native" ./configure --prefix=/usr --disable-network --disable-debug --disable-muxers --disable-indevs --disable-outdev=fbdev --disable-outdev=oss --disable-doc --disable-bsfs --disable-ffprobe --disable-sdl2 --disable-stripping --disable-thumb --disable-mmal --enable-sand --enable-v4l2-request --enable-libdrm --enable-epoxy --enable-libudev --enable-vout-drm
-  make install
-  cd ../
+  CFLAGS="-march=native -mtune=native" CXXFLAGS="-march=native -mtune=native" ./configure --prefix=/usr --disable-network --disable-debug --disable-muxers --disable-indevs --disable-outdev=fbdev --disable-outdev=oss --disable-doc --disable-bsfs --disable-ffprobe --disable-sdl2 --disable-stripping --disable-thumb --disable-mmal --enable-sand --enable-v4l2-request --enable-libdrm --enable-epoxy --enable-libudev --enable-vout-drm && \
+  make install || \
+  return 1
+  cd ../ && return 0
 }
-build_ffmpeg #Needed for the time being
+build_ffmpeg || exit 1 #Needed for the time being
 
 build_mpv ()
 {
   pacman -S sdl2 wireplumber pipewire-jack hicolor-icon-theme luajit wayland-protocols yt-dlp --asdeps --noconfirm --needed
   su $USER -c "git clone --branch pi_h265 https://github.com/EmperorPenguin18/mpv" && cd mpv
-  meson setup build -Dsdl2=enabled && ninja -C build
-  ninja -C build install && cd ../
+  meson setup build -Dsdl2=enabled && ninja -C build && \
+  ninja -C build install || \
+  return 1
+  cd ../ && return 0
 }
-build_mpv #Needed for the time being
+build_mpv || exit 1 #Needed for the time being
 
 #Auto-login as user
 dotfile "$DIR/override.conf" "/etc/systemd/system/getty@tty1.service.d/"
@@ -101,12 +105,12 @@ wpctl set-mute $DEFAULT 0
 wpctl set-volume $DEFAULT 100%
 
 #Youtube
-su $USER -c "git clone https://github.com/CogentRedTester/mpv-scroll-list"
+su $USER -c "git clone https://github.com/CogentRedTester/mpv-scroll-list $DIR/mpv-scroll-list"
 dotfile "$DIR/mpv-scroll-list/scroll-list.lua" "/home/$USER/.config/mpv/script-modules/"
-su $USER -c "git clone https://github.com/CogentRedTester/mpv-user-input"
+su $USER -c "git clone https://github.com/CogentRedTester/mpv-user-input $DIR/mpv-user-input"
 dotfile "$DIR/mpv-user-input/user-input-module.lua" "/home/$USER/.config/mpv/script-modules/"
 dotfile "$DIR/mpv-user-input/user-input.lua" "/home/$USER/.config/mpv/scripts/"
-su $USER -c "git clone https://github.com/CogentRedTester/mpv-scripts"
+su $USER -c "git clone https://github.com/CogentRedTester/mpv-scripts $DIR/mpv-scripts"
 dotfile "$DIR/mpv-scripts/youtube-search.lua" "/home/$USER/.config/mpv/scripts/"
 dotfile "$DIR/youtube.conf" "/home/$USER/.config/mpv/script-opts/"
 
