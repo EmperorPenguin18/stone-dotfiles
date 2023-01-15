@@ -4,7 +4,7 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term LIBGL_ALWAYS_SOFTWARE=true kitty
+set $term foot
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 include /etc/sway/config-vars.d/*
@@ -64,8 +64,7 @@ bindsym $mod+r mode "resize"
 
 default_border none
 seat * xcursor_theme Transparent
-exec amixer sset PCM 100%
-exec $term -e lf /media && swaymsg exit
-exec antimicrox --hidden --eventgen uinput --profile mpv.gamecontroller.amgp
+exec DEFAULT=$(wpctl status | grep -m 1 'HDMI' | awk '{print $2}' | cut -f 1 -d '.') && wpctl set-default $DEFAULT && wpctl set-mute $DEFAULT 0 && wpctl set-volume $DEFAULT 100%
+exec mpv && swaymsg exit
 
 include /etc/sway/config.d/*
