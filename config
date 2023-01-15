@@ -64,7 +64,7 @@ bindsym $mod+r mode "resize"
 
 default_border none
 seat * xcursor_theme Transparent
-exec while [ -z $DEFAULT ]; do DEFAULT=$(wpctl status | grep -m 1 'HDMI' | awk '{print $2}' | cut -f 1 -d '.'); done && wpctl set-default $DEFAULT && wpctl set-mute $DEFAULT 0 && wpctl set-volume $DEFAULT 100%
+exec DEFAULT=$(wpctl status | grep -m 1 'HDMI' | awk '{print $2}' | cut -f 1 -d '.') && wpctl set-default $DEFAULT && wpctl set-mute $DEFAULT 0 && wpctl set-volume $DEFAULT 100%
 exec mpv && swaymsg exit
 
 include /etc/sway/config.d/*
