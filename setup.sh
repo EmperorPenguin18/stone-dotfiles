@@ -62,7 +62,7 @@ build_ffmpeg ()
   pacman -S libepoxy --asdeps --noconfirm --needed
   su $USER -c "git clone -b dev/5.1.2/rpi_import_1 https://github.com/EmperorPenguin18/rpi-ffmpeg"
   cd rpi-ffmpeg
-  CFLAGS="-march=native -mtune=native" CXXFLAGS="-march=native -mtune=native" ./configure --prefix=/usr --disable-network --disable-debug --disable-muxers --disable-indevs --disable-outdev=fbdev --disable-outdev=oss --disable-doc --disable-bsfs --disable-ffprobe --disable-sdl2 --disable-stripping --disable-thumb --disable-mmal --enable-sand --enable-v4l2-request --enable-libdrm --enable-epoxy --enable-libudev --enable-vout-drm && \
+  CFLAGS="-march=native -mtune=native" CXXFLAGS="-march=native -mtune=native" ./configure --prefix=/usr --disable-debug --disable-muxers --disable-indevs --disable-outdev=fbdev --disable-outdev=oss --disable-doc --disable-bsfs --disable-ffprobe --disable-sdl2 --disable-stripping --disable-thumb --disable-mmal --enable-gnutls --enable-muxer=rawvideo --enable-sand --enable-v4l2-request --enable-libdrm --enable-epoxy --enable-libudev --enable-vout-drm && \
   make install || \
   return 1
   cd ../ && return 0
@@ -102,10 +102,17 @@ dotfile "$DIR/config" "/home/$USER/.config/sway/"
 su $USER -c "git clone https://github.com/johnodon/Transparent_Cursor_Theme $DIR/Transparent_Cursor_Theme"
 dotfile "$DIR/Transparent_Cursor_Theme/Transparent/cursor.theme" "/usr/share/icons/Transparent/"
 dotfile "$DIR/Transparent_Cursor_Theme/Transparent/cursors/*" "/usr/share/icons/Transparent/cursors/"
-DEFAULT=$(wpctl status | grep -m 1 'HDMI' | awk '{print $3}' | cut -f 1 -d '.')
-wpctl set-default $DEFAULT
-wpctl set-mute $DEFAULT 0
-wpctl set-volume $DEFAULT 100%
+
+#Init audio
+pipewire &
+pw-record test.wav && \
+pw-play test.wav && \
+DEFAULT=$(wpctl status | grep -m 1 'HDMI' | awk '{print $3}' | cut -f 1 -d '.') && \
+wpctl set-default $DEFAULT && \
+wpctl set-mute $DEFAULT 0 && \
+wpctl set-volume $DEFAULT 100% && \
+rm test.wav || \
+exit 1
 
 #Youtube
 su $USER -c "git clone https://github.com/CogentRedTester/mpv-scroll-list $DIR/mpv-scroll-list"
