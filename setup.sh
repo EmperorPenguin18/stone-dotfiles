@@ -44,7 +44,7 @@ pacman -S sway --noconfirm --needed
 build_mesa ()
 {
   pacman -S python-mako llvm wayland-protocols xorg-xrandr --asdeps --noconfirm --needed
-  su $USER -c "git clone -b dev/pi_drm_format https://gitlab.freedesktop.org/EmperorPenguin18/mesa.git"
+  su $USER -c "git clone https://gitlab.freedesktop.org/mesa/mesa.git"
   cd mesa
   meson setup build -D b_ndebug=true -D b_lto=false -D platforms=x11,wayland -D gallium-drivers=swrast,v3d,vc4 -D dri3=enabled -D egl=enabled -D gbm=enabled -D gles1=disabled -D gles2=enabled -D glvnd=true -D glx=dri -D libunwind=enabled -D llvm=enabled -D lmsensors=enabled -D osmesa=true -D shared-glapi=enabled -D microsoft-clc=disabled -D valgrind=disabled -D tools=[] -D zstd=enabled -D video-codecs=vc1dec,h264dec,h264enc,h265dec,h265enc -D buildtype=plain --wrap-mode=nofallback -D prefix=/usr -D sysconfdir=/etc || exit 1
   meson configure --no-pager
@@ -55,7 +55,7 @@ build_mesa ()
   return 1
   cd ../ && return 0
 }
-build_mesa || exit 1 #Only needed until 23.0 releases
+build_mesa || exit 1 #Only needed until 23.1 releases
 
 build_ffmpeg ()
 {
