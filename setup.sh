@@ -10,23 +10,6 @@ dotfile ()
   return 0
 }
 
-#install_aur ()
-#{
-#  OLD="$(pwd)"
-#  for I in $@
-#  do
-#    su $USER -c "git clone https://aur.archlinux.org/$I.git /tmp/$I" && \
-#    cd /tmp/$I && \
-#    DEPS=$(grep "depends=" PKGBUILD | sed "s/\"/'/g" | grep -o "'.*'" | sed "s/:.*'/'/g;s/'//g" | paste -sd " " -) && \
-#    pacman -S $DEPS --asdeps --noconfirm --needed && \
-#    su $USER -c "makepkg --noconfirm" && \
-#    pacman -U *.pkg* --noconfirm --needed || \
-#    return 1
-#  done
-#  cd $OLD
-#  return 0
-#}
-
 #Setup
 if [ "$(id -u)" -ne 0 ]; then
   echo "This script must be run as root"
@@ -59,22 +42,11 @@ build_mesa || exit 1 #Only needed until 23.1 releases
 
 curl -sL http://mirror.archlinuxarm.org/aarch64/alarm/$(curl -sL http://mirror.archlinuxarm.org/aarch64/alarm/ | grep -m 1 "ffmpeg-rpi" | cut -f 2 -d '>' | cut -f 1 -d '<') > ffmpeg-rpi.pkg.tar.xz
 pacman -U ffmpeg-rpi.pkg.tar.xz --asdeps --noconfirm --needed
-#build_ffmpeg ()
-#{
-#  pacman -S libepoxy --asdeps --noconfirm --needed
-#  su $USER -c "git clone -b dev/5.1.2/rpi_import_1 https://github.com/EmperorPenguin18/rpi-ffmpeg"
-#  cd rpi-ffmpeg
-#  CFLAGS="-march=native -mtune=native" CXXFLAGS="-march=native -mtune=native" ./configure --prefix=/usr --disable-debug --disable-indevs --disable-outdev=fbdev --disable-outdev=oss --disable-doc --disable-bsfs --disable-ffprobe --disable-sdl2 --disable-stripping --disable-thumb --disable-mmal --enable-gnutls --enable-sand --enable-v4l2-request --enable-libdrm --enable-epoxy --enable-libudev --enable-vout-drm && \
-#  make install || \
-#  return 1
-#  cd ../ && return 0
-#}
-#build_ffmpeg || exit 1 #Needed for the time being
 
 build_mpv ()
 {
   pacman -S sdl2 wireplumber pipewire-jack hicolor-icon-theme luajit wayland-protocols yt-dlp libass --asdeps --noconfirm --needed
-  su $USER -c "git clone -b pi_h265 https://github.com/EmperorPenguin18/mpv"
+  su $USER -c "git clone https://github.com/mpv-player/mpv"
   git config --global --add safe.directory $DIR/mpv
   cd mpv
   PKG_CONFIG_PATH=/usr/lib/ffmpeg-rpi/pkgconfig meson setup build -Dsdl2=enabled && ninja -C build && \
