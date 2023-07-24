@@ -24,22 +24,6 @@ cd $DIR
 #Install packages
 pacman -S sway --noconfirm --needed
 
-build_mesa ()
-{
-  pacman -S python-mako llvm wayland-protocols xorg-xrandr --asdeps --noconfirm --needed
-  su $USER -c "git clone https://gitlab.freedesktop.org/mesa/mesa.git"
-  cd mesa
-  meson setup build -D b_ndebug=true -D b_lto=false -D platforms=x11,wayland -D gallium-drivers=swrast,v3d,vc4 -D dri3=enabled -D egl=enabled -D gbm=enabled -D gles1=disabled -D gles2=enabled -D glvnd=true -D glx=dri -D libunwind=enabled -D llvm=enabled -D lmsensors=enabled -D osmesa=true -D shared-glapi=enabled -D microsoft-clc=disabled -D valgrind=disabled -D tools=[] -D zstd=enabled -D video-codecs=vc1dec,h264dec,h264enc,h265dec,h265enc -D buildtype=plain --wrap-mode=nofallback -D prefix=/usr -D sysconfdir=/etc || exit 1
-  meson configure --no-pager
-  ninja $NINJAFLAGS -C build && \
-  ninja $NINJAFLAGS -C build install && \
-  rm -f /usr/bin/mesa-overlay-control.py && \
-  ln -sf /usr/lib/libGLX_mesa.so.0 /usr/lib/libGLX_indirect.so.0 || \
-  return 1
-  cd ../ && return 0
-}
-build_mesa || exit 1 #Only needed until 23.1 releases
-
 curl -sL http://mirror.archlinuxarm.org/aarch64/alarm/$(curl -sL http://mirror.archlinuxarm.org/aarch64/alarm/ | grep -m 1 "ffmpeg-rpi" | cut -f 2 -d '>' | cut -f 1 -d '<') > ffmpeg-rpi.pkg.tar.xz
 pacman -U ffmpeg-rpi.pkg.tar.xz --asdeps --noconfirm --needed
 
